@@ -8,4 +8,5 @@
 <li>What relationships should exist between different types of data, and how should they be represented?</li>
 <li>How should users interact with the system (search, browse, contribute, analyze data)?</li>
 <li>Should users be able to modify, annotate, or extend existing connections between data points?</li>
+<li>Should the system focused on only one topic or can users enter different type of questions</li>
 <ul>
