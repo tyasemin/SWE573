@@ -54,7 +54,7 @@
 Notes:
 Different from the forum, we should aggreate the content.
 System can have sort of the forum but there should be connection, graph, to show the relation.
-Users must be registered, they can add their job,locations.
+Users must be registered, they can add their job,locations.(mandatory)
 Anonymies entries aren't going to be alloved.
 There should be username.
 No need to authentication.
