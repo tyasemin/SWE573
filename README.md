@@ -7,3 +7,8 @@ Boğaziçi University SWE 573 Project Wiki Page
   <li>Some of the Wikidata query examples can be found at: <a href="Wikidata_Examples_Page.md">Wikidata Examples</a></li>
 </ul>
 
+## Elicitation Questions
+
+The aim of the elicitation questions is gathering information, clarifying the requirements of the project.
+
+Elicitation questions can be found at : <a href="elicitation questions.md">Click</a></li>
