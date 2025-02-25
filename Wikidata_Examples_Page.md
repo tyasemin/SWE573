@@ -19,6 +19,9 @@ LIMIT 10
 
 ```
 
+![Example one](img/exp1.png)
+
+
 ## Find random cities and their capitals
 
 ```sparql
