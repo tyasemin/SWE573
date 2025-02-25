@@ -45,6 +45,8 @@ WHERE {
   ?food wdt:P31 wd:Q2095.      # (P31 = instance of, Q2095 = food)
   ?food wdt:P186 ?ingredient.   # (P186 = made from material)
 ```
+
+
 ![Example third](img/exp3.png)
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
