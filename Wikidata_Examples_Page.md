@@ -35,6 +35,8 @@ WHERE {
 LIMIT 10
  ```
 
+![Example second](img/exp2.png)
+
 ## List of Food and Their Main Ingredients
 
 ```sparql
@@ -42,6 +44,8 @@ SELECT ?food ?foodLabel ?ingredient ?ingredientLabel
 WHERE {
   ?food wdt:P31 wd:Q2095.      # (P31 = instance of, Q2095 = food)
   ?food wdt:P186 ?ingredient.   # (P186 = made from material)
+```
+![Example third](img/exp3.png)
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }
