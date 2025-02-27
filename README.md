@@ -1,5 +1,15 @@
-Boğaziçi University SWE 573 Project Wiki Page
-# Connect the Dots
+
+<p align="center">
+  <img src="assets/project_icon.png" alt="Connect the Dots" width="250">
+</p>
+
+
+<p align="center">
+  <img src="assets/CONNECTTHEDOTS.gif" width="900">
+</p>
+
+
+
 ## Research
 ### wikidata
 <ul>
