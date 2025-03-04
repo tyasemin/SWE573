@@ -22,3 +22,7 @@
 The aim of the elicitation questions is gathering information, clarifying the requirements of the project.
 
 Elicitation questions can be found at : <a href="elicitation_questions.md">Click</a></li>
+
+## Mockups
+
+The aim to create mockup is to understand the project requirements better. <a href="mockups.md">Click</a></li>
