@@ -23,6 +23,25 @@
 <li>3.1 External Interfaces</li>
 <li>3.2 Functional Requirements</li>
 <li>3.3 Non-Functional Requirements</li>
+<ul>
+<li>The product should only provide English support.</li>
+<li>The user interface must be clear and easy to use.</li>
+<li>The product must be web application.</li>
+<li>Categories should not be used, content classification should be done only through tags.</li>
+<li>Adding AI is not mandatory, but the system must work with Wikidata.</li>
+<li>There will be no real-time chat feature added, but there should be a discussion section.</li>
+<li>Popular and trending topics should be displayed based on user activity.</li>
+<li>If the contents are too similar, it is suggested to merge them.</li>
+<li>There should be a contributors section for each topic.</li>
+<li>Media integration should be provided and fast links should be offered to users.</li>
+<li>There must be more than one board in the system and each board must have an owner.</li>
+<li>The system should provide guidance to users on generating content from Wikidata.</li>
+<li>User verification will not be required as part of security requirements, but anonymous logins will not be allowed.</li>
+
+</ul>
+
+
+  
 <li>3.4 Compliance</li>
 <li>3.5 Design and Implementation</li>
 </ul>
