@@ -1,74 +1,142 @@
-# Elicitation Questions
-<ul>
-<li> Q:What is the main goal of the "Connect the Dots" project?</li>
-     A:Research
-  
-<li> Q:Who are the target users, and what problems does this project aim to solve for them?</li>
-     A:Allowe them to organize, collective intelligence?
+# 🌐 Connect the Dots - Project Overview
 
-<li>What key features and functionalities should be included in the system?</li>
-<li>Q:What kind of connections or relationships should the system be able to establish between different entities?</li>
-    A:User and content based.
+## 🎯 Main Goal
+**Q:** What is the main goal of the "Connect the Dots" project?
 
-<li>How should users interact with the system (search, browse, contribute, analyze data)?</li>
-<li>Q:Should users be able to modify, annotate, or extend existing connections between data points?</li>
-    A: We should keep the history of the modification between the relations.
+**A:** Research.
 
-<li>Q:Should the system focused on only one topic or can users enter different type of questions?</li>
-    A:All the features can be used to in the system, but if the entery is too outside of the aim of the project, it should be removed.
-    A:It should be covering everything.
-<li>Q: What data types can be used</li>
-    A: Any type of data.
-    
-<li>Q:Should the connection between the entities represented as graphicly?</li>
-    A:Should be filterable.
-    
-<li>Q:Should the connection between the entities must be based on users or about the content?</li>
-    A:Both
-    
-<li>Q:Should users be able to vote the entry to show the entry is usefull?</li>
-    A:Users can give vote to show the entry/comment related or not relavent.
-    
-<li>Q:Should the system integrated with AI?</li>
-    A:AI is not required.We should use wikidata.
+---
 
-<li>Q:Should we give users predefined tags to use?</li>
-    A:Predefined tags needed.
+## 👥 Target Users & Problems Addressed
+**Q:** Who are the target users, and what problems does this project aim to solve?
 
-<li>Which platform </li>
-    A:Web
+**A:** The project aims to help users **organize and utilize collective intelligence** efficiently.
 
-<li>Q:Should we list the hot topics?</li>
-    A:It is good to show hot topics, or recent topic. (Can be known from the users activity, tags they contributed)
-    A:How many people contributing the topic.
+---
 
-<li>Should we limit the content based on the user's age?</li>
+## 🔑 Key Features & Functionalities
+**Q:** What key features and functionalities should be included in the system?
 
-<li>Q:Should users be able to see the topics they contributed?</li>
-    A:Yes
-<li>Q:Should users have a score based on the number of useful votes,number of entries,</li>
-    A:Yes but not in the first delivery.
+**A:** The system should enable users to:
+- 📌 Establish, explore, and analyze **connections** between different entities.
+- 🔍 **Search, browse, contribute**, and analyze data effectively.
+- ✏️ Modify, annotate, and extend connections while keeping a **modification history**.
 
-<ul>
+---
 
-Notes:
-Different from the forum, we should aggreate the content.
-System can have sort of the forum but there should be connection, graph, to show the relation.
-Users must be registered, they can add their job,locations.(mandatory)
-Anonymies entries aren't going to be alloved.
-There should be username.
-No need to authentication.
-No categories , use tags.
-Only english.
-Give guidline for the content and tags.
-There can be recommendation if the similarity is high between the topic(or merging)
-There must be a contributers section inside the topic.
-There can be media section to forward the people more fast to connections.
-There will be multiple boards, and there will be board owner.
-A node can be from wikidata.
-There will be a guidline from the wikidata to show to user how they can write the content.
+## 🔗 Connections & Relationships
+**Q:** What types of connections or relationships should the system establish between different entities?
 
-Live chat is not required, discussion part is required.
-There will be admin.
+**A:** Connections should be based on **both user interactions and content relationships**.
 
+**Q:** Should the system focus on a specific topic, or can users enter different types of questions?
 
+**A:**
+- ✅ The system should support a **broad range of topics**.
+- 🚨 Entries that **fall outside the project’s scope** should be **removed**.
+
+---
+
+## 📊 Data & Representation
+**Q:** What types of data can be used?
+
+**A:** Any type of data.
+
+**Q:** Should the connections between entities be represented graphically?
+
+**A:** Yes, and they should be **filterable** for better usability.
+
+**Q:** Should connections be based on users or content?
+
+**A:** **Both**.
+
+---
+
+## 👍 Voting System
+**Q:** Should users be able to vote on entries to indicate their usefulness?
+
+**A:**
+- ✅ Users should be able to **vote** on entries/comments to mark them as **relevant or irrelevant**.
+
+---
+
+## 🤖 AI & Data Sources
+**Q:** Should the system be integrated with AI?
+
+**A:**
+- ❌ AI integration is **not required**.
+- 🗂️ The system should use **Wikidata** instead.
+
+**Q:** Should users be given predefined tags?
+
+**A:**
+- ✅ **Yes**, predefined tags should be available.
+
+---
+
+## 💻 Platform
+**Q:** Which platform should the system be built on?
+
+**A:** **Web-based**.
+
+**Q:** Should the system list trending topics?
+
+**A:**
+- 🔥 Yes, it should display **trending or recent topics** based on user activity and contributions.
+
+---
+
+## 🔞 Age Restrictions
+**Q:** Should content be restricted based on the user’s age?
+
+**A:** Not specified.
+
+**Q:** Should users be able to see the topics they have contributed to?
+
+**A:** **Yes**.
+
+---
+
+## 🏆 User Scoring System
+**Q:** Should users have a score based on the number of useful votes and the number of contributions?
+
+**A:**
+- ✅ **Yes**, but this feature will **not** be included in the **first release**.
+
+---
+
+## 📝 Additional Notes
+- 🏛️ The system should **differ from traditional forums** by aggregating content rather than just displaying discussions.
+- 🛠️ While a **forum-like structure** may exist, it must include **graphical representations of relationships**.
+
+### 👤 User Registration
+- 🔑 Users must **register** to participate.
+- 📍 They must provide **job and location details** (mandatory).
+- ❌ **Anonymous entries are NOT allowed**.
+- 🆔 A **username** is required.
+- 🔓 No **authentication system** needed.
+
+### 🏷️ Content Organization
+- 🚫 **No categories**, only **tags** will be used.
+- 🇬🇧 The platform will **support only English**.
+- 📜 **Clear guidelines** should be provided for content creation and tagging.
+- 🔄 If topics are highly **similar**, the system may **recommend merging** them.
+
+### 🌟 Contributor Recognition
+- 🎖️ A **Contributors** section should be included for each topic.
+
+### 📡 Media Integration
+- 🎥 A **media section** should be available to help users **navigate and connect information** efficiently.
+
+### 📌 Board Structure
+- 📚 Multiple **boards** will exist, each with an assigned **board owner**.
+
+### 📖 Wikidata Integration
+- 📜 Users should be **guided** on how to create content using **Wikidata resources**.
+
+### 💬 Discussions & Administration
+- ❌ **Live chat** is NOT required.
+- ✅ A **discussion section** is necessary.
+- 🔧 The system will have **administrators** to oversee content and user activity.
+
+---
