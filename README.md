@@ -39,7 +39,20 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Plan technical architecture (frontend, backend, data model, APIs)
 - Draft initial project plan and timeline
 - Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)
-- User registration & login 
+- User registration & login
+
+Delirables:
+- [ ] Collect and document all functional and non-functional requirements  
+- [ ] Define user roles and interaction flows  
+- [ ] Create user stories and use cases  
+- [ ] Design low-fidelity wireframes and flow diagrams  
+- [ ] Prepare design mockups  
+- [ ] Plan technical architecture (frontend, backend, data model, APIs)  
+- [ ] Draft initial project plan and timeline  
+- [ ] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)  
+- [ ] Implement user registration & login  
+
+
 
 #### 🛠 March 25 – March 27 (parallel task): Initial CI/CD Setup
 - Set up Git repository and branching strategy
@@ -47,6 +60,13 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Prepare Dockerfile and basic docker-compose setup
 - Add automated tests to pipeline
 - Configure deployment pipeline (staging environment)
+
+Delirables:
+- [ ] Set up Git repository and branching strategy  
+- [ ] Configure CI pipeline (lint, test, build)  
+- [ ] Prepare `Dockerfile` and basic `docker-compose` setup  
+- [ ] Add automated tests to pipeline  
+- [ ] Configure deployment pipeline (staging environment)  
 
 #### 🟡 March 27 – April 18: Core Development Phase
 - Backend setup: authentication, database models, REST APIs
@@ -56,6 +76,12 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Integrate tag-based classification
 - Deploy first staging version (auto-deploy via CI/CD)
 
+- [ ] Backend setup: authentication, database models, REST APIs  
+- [ ] Frontend setup: layout, routing, forms  
+- [ ] Implement Boards, Tags, Connections logic  
+- [ ] Integrate tag-based classification system  
+- [ ] Deploy first staging version via CI/CD  
+
 #### 🌐 April 15 – April 18: Hosting Environment Setup
 - Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)
 - Configure environment variables and secrets
@@ -63,6 +89,14 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Connect frontend/backend with hosted DB
 - Enable HTTPS and domain setup (optional)
 
+Deliverables:
+- [ ] Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)  
+- [ ] Configure environment variables and secrets  
+- [ ] Set up PostgreSQL hosting (e.g., Supabase or Railway)  
+- [ ] Connect frontend/backend to the hosted DB  
+- [ ] Enable HTTPS and domain setup (optional)
+
+      
 #### 🟠 April 19 – April 29: Interactive & Visual Features
 - Implement:
   - Connection editing with history
@@ -71,6 +105,14 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Begin Wikidata integration (suggestions from SPARQL)
 - Show user contribution history
 - Predefined tag setup
+
+Deliverables:
+- [ ] Implement connection editing with history tracking  
+- [ ] Build graph-based visualization (D3.js or Cytoscape.js)  
+- [ ] Create filterable UI for nodes and relationships  
+- [ ] Begin Wikidata integration (SPARQL suggestions)  
+- [ ] Display user contribution history  
+- [ ] Predefined tag logic and UI  
 
 #### 🔵 April 30 – May 9: Final Features, Testing & Fixes
 - Add:
@@ -82,12 +124,28 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Fix bugs and polish design
 - Add final test coverage to CI pipeline
 
+Deliverables:
+- [ ] Add discussion section per node  
+- [ ] Implement trending topics algorithm  
+- [ ] Add contributors view per topic  
+- [ ] Finalize media upload and quick access links  
+- [ ] Complete system testing: functionality, UX, performance  
+- [ ] Fix critical bugs and polish design  
+- [ ] Add final test coverage to CI/CD pipeline  
+
 #### 🟣 May 10 – May 13: Final Packaging & Delivery
 - Final testing on production/staging
 - Prepare and record demo video (if needed)
 - Write handover or user guide (optional)
 - Deliver final product with documentation
 - Present or deploy publicly
+
+Deliverables:
+- [ ] Run final testing on production or staging  
+- [ ] Record product demo video (if needed)  
+- [ ] Write handover guide or user documentation  
+- [ ] Package and deliver the final product  
+- [ ] Present or deploy project publicly  
 
 # DB ER Diagram
 
