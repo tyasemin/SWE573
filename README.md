@@ -49,7 +49,7 @@ Delirables:
 - [x] Prepare design mockups  
 - [x] Plan technical architecture (frontend, backend, data model, APIs)  
 - [x] Draft initial project plan and timeline  
-- [ ] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)  
+- [x] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)  
 - [ ] Implement user registration & login  
 
 
