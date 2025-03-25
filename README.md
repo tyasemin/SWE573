@@ -42,33 +42,23 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - User registration & login
 
 Delirables:
-- [ ] Collect and document all functional and non-functional requirements  
-- [ ] Define user roles and interaction flows  
-- [ ] Create user stories and use cases  
-- [ ] Design low-fidelity wireframes and flow diagrams  
-- [ ] Prepare design mockups  
-- [ ] Plan technical architecture (frontend, backend, data model, APIs)  
-- [ ] Draft initial project plan and timeline  
+- [x] Collect and document all functional and non-functional requirements  
+- [x] Define user roles and interaction flows  
+- [x] Create user stories and use cases  
+- [x] Design low-fidelity wireframes and flow diagrams  
+- [x] Prepare design mockups  
+- [x] Plan technical architecture (frontend, backend, data model, APIs)  
+- [x] Draft initial project plan and timeline  
 - [ ] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)  
 - [ ] Implement user registration & login  
 
 
-
-#### 🛠 March 25 – March 27 (parallel task): Initial CI/CD Setup
+#### 🟡 March 25 – April 18: Core Development Phase
 - Set up Git repository and branching strategy
 - Configure CI pipeline (lint, test, build)
 - Prepare Dockerfile and basic docker-compose setup
 - Add automated tests to pipeline
 - Configure deployment pipeline (staging environment)
-
-Delirables:
-- [ ] Set up Git repository and branching strategy  
-- [ ] Configure CI pipeline (lint, test, build)  
-- [ ] Prepare `Dockerfile` and basic `docker-compose` setup  
-- [ ] Add automated tests to pipeline  
-- [ ] Configure deployment pipeline (staging environment)  
-
-#### 🟡 March 27 – April 18: Core Development Phase
 - Backend setup: authentication, database models, REST APIs
 - Frontend setup: layout, routing, forms
 - Implement:
@@ -80,7 +70,12 @@ Delirables:
 - [ ] Frontend setup: layout, routing, forms  
 - [ ] Implement Boards, Tags, Connections logic  
 - [ ] Integrate tag-based classification system  
-- [ ] Deploy first staging version via CI/CD  
+- [ ] Deploy first staging version via CI/CD
+- [ ] Set up Git repository and branching strategy  
+- [ ] Configure CI pipeline (lint, test, build)  
+- [ ] Prepare `Dockerfile` and basic `docker-compose` setup  
+- [ ] Add automated tests to pipeline  
+- [ ] Configure deployment pipeline (staging environment) 
 
 #### 🌐 April 15 – April 18: Hosting Environment Setup
 - Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)
