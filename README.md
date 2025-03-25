@@ -50,25 +50,23 @@ Delirables:
 - [x] Plan technical architecture (frontend, backend, data model, APIs)  
 - [x] Draft initial project plan and timeline  
 - [x] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)
+- [ ] Backend setup: authentication, database models, REST APIs  
+- [ ] Frontend setup: layout, routing, forms
 - [ ] Implement unit tests 
 - [ ] Implement user registration & login  
 
 
-#### 🟡 March 25 – April 18: Core Development Phase
+#### 🟡 March 25 – April 15: Core Development Phase
 - Set up Git repository and branching strategy
 - Configure CI pipeline (lint, test, build)
 - Prepare Dockerfile and basic docker-compose setup
 - Add automated tests to pipeline
 - Configure deployment pipeline (staging environment)
-- Backend setup: authentication, database models, REST APIs
-- Frontend setup: layout, routing, forms
 - Implement:
   - Boards, tags, connections
 - Integrate tag-based classification
 - Deploy first staging version (auto-deploy via CI/CD)
-
-- [ ] Backend setup: authentication, database models, REST APIs  
-- [ ] Frontend setup: layout, routing, forms  
+  
 - [ ] Implement Boards, Tags, Connections logic  
 - [ ] Integrate tag-based classification system  
 - [ ] Deploy first staging version via CI/CD
@@ -78,7 +76,7 @@ Delirables:
 - [ ] Add automated tests to pipeline  
 - [ ] Configure deployment pipeline (staging environment) 
 
-#### 🌐 April 15 – April 18: Hosting Environment Setup
+#### 🌐 April 15 – April 22: Hosting Environment Setup
 - Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)
 - Configure environment variables and secrets
 - Set up database hosting (e.g., PostgreSQL on Supabase or Railway)
@@ -93,7 +91,7 @@ Deliverables:
 - [ ] Enable HTTPS and domain setup (optional)
 
       
-#### 🟠 April 19 – April 29: Interactive & Visual Features
+#### 🟠 April 22 – April 29: Interactive & Visual Features
 - Implement:
   - Connection editing with history
   - Graph-based visualization (D3.js or Cytoscape.js)
