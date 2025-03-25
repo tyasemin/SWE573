@@ -45,7 +45,7 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - [ ] Implement user registration & login
 
 
-#### 🟡 March 25 – April 15: Core Development Phase
+#### 🟡 March 25 – April 1: Core Development Phase
 - [ ] Deploy first staging version via CI/CD
 - [ ] Implement Boards, Tags, Connections logic  
 - [ ] Integrate tag-based classification system  
@@ -56,7 +56,7 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - [ ] Configure deployment pipeline (staging environment)
 - [ ] Implement unit tests 
 
-#### 🌐 April 15 – April 22: Hosting Environment Setup
+#### 🌐 April 2 – April 8: Hosting Environment Setup
 - [ ] Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)  
 - [ ] Configure environment variables and secrets  
 - [ ] Set up PostgreSQL hosting (e.g., Supabase or Railway)  
@@ -64,7 +64,7 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - [ ] Enable HTTPS and domain setup (optional)
 
       
-#### 🟠 April 22 – April 29: Interactive & Visual Features
+#### 🟠 April 9 – April 20: Interactive & Visual Features
 - [ ] Implement connection editing with history tracking  
 - [ ] Build graph-based visualization (D3.js or Cytoscape.js)  
 - [ ] Create filterable UI for nodes and relationships  
@@ -72,7 +72,7 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - [ ] Display user contribution history  
 - [ ] Predefined tag logic and UI  
 
-#### 🔵 April 30 – May 9: Final Features, Testing & Fixes
+#### 🔵 April 21 – May 9: Final Features, Testing & Fixes
 - [ ] Add discussion section per node  
 - [ ] Implement trending topics algorithm  
 - [ ] Add contributors view per topic  
