@@ -18,9 +18,9 @@
 **Q:** What key features and functionalities should be included in the system?
 
 **A:** The system should enable users to:
-- 📌 Establish, explore, and analyze **connections** between different entities.
-- 🔍 **Search, browse, contribute**, and analyze data effectively.
-- ✏️ Modify, annotate, and extend connections while keeping a **modification history**.
+- Establish, explore, and analyze **connections** between different entities.
+- **Search, browse, contribute**, and analyze data effectively.
+- Modify, annotate, and extend connections while keeping a **modification history**.
 
 ---
 
@@ -32,8 +32,8 @@
 **Q:** Should the system focus on a specific topic, or can users enter different types of questions?
 
 **A:**
-- ✅ The system should support a **broad range of topics**.
-- 🚨 Entries that **fall outside the project’s scope** should be **removed**.
+-  The system should support a **broad range of topics**.
+-  Entries that **fall outside the project’s scope** should be **removed**.
 
 ---
 
@@ -56,7 +56,7 @@
 **Q:** Should users be able to vote on entries to indicate their usefulness?
 
 **A:**
-- ✅ Users should be able to **vote** on entries/comments to mark them as **relevant or irrelevant**.
+- Users should be able to **vote** on entries/comments to mark them as **relevant or irrelevant**.
 
 ---
 
@@ -64,13 +64,13 @@
 **Q:** Should the system be integrated with AI?
 
 **A:**
-- ❌ AI integration is **not required**.
-- 🗂️ The system should use **Wikidata** instead.
+- AI integration is **not required**.
+-  The system should use **Wikidata** instead.
 
 **Q:** Should users be given predefined tags?
 
 **A:**
-- ✅ **Yes**, predefined tags should be available.
+- **Yes**, predefined tags should be available.
 
 ---
 
@@ -82,7 +82,7 @@
 **Q:** Should the system list trending topics?
 
 **A:**
-- 🔥 Yes, it should display **trending or recent topics** based on user activity and contributions.
+-  Yes, it should display **trending or recent topics** based on user activity and contributions.
 
 ---
 
@@ -101,42 +101,42 @@
 **Q:** Should users have a score based on the number of useful votes and the number of contributions?
 
 **A:**
-- ✅ **Yes**, but this feature will **not** be included in the **first release**.
+-  **Yes**, but this feature will **not** be included in the **first release**.
 
 ---
 
 ## 📝 Additional Notes
-- 🏛️ The system should **differ from traditional forums** by aggregating content rather than just displaying discussions.
-- 🛠️ While a **forum-like structure** may exist, it must include **graphical representations of relationships**.
+-  The system should **differ from traditional forums** by aggregating content rather than just displaying discussions.
+-  While a **forum-like structure** may exist, it must include **graphical representations of relationships**.
 
 ### 👤 User Registration
-- 🔑 Users must **register** to participate.
-- 📍 They must provide **job and location details** (mandatory).
-- ❌ **Anonymous entries are NOT allowed**.
-- 🆔 A **username** is required.
-- 🔓 No **authentication system** needed.
+-  Users must **register** to participate.
+-  They must provide **job and location details** (mandatory).
+-  **Anonymous entries are NOT allowed**.
+-  **username** is required.
+-  No **authentication system** needed.
 
 ### 🏷️ Content Organization
-- 🚫 **No categories**, only **tags** will be used.
-- 🇬🇧 The platform will **support only English**.
-- 📜 **Clear guidelines** should be provided for content creation and tagging.
-- 🔄 If topics are highly **similar**, the system may **recommend merging** them.
+-  **No categories**, only **tags** will be used.
+-  The platform will **support only English**.
+-  **Clear guidelines** should be provided for content creation and tagging.
+-  If topics are highly **similar**, the system may **recommend merging** them.
 
 ### 🌟 Contributor Recognition
-- 🎖️ A **Contributors** section should be included for each topic.
+-  A **Contributors** section should be included for each topic.
 
 ### 📡 Media Integration
-- 🎥 A **media section** should be available to help users **navigate and connect information** efficiently.
+- A **media section** should be available to help users **navigate and connect information** efficiently.
 
 ### 📌 Board Structure
-- 📚 Multiple **boards** will exist, each with an assigned **board owner**.
+-  Multiple **boards** will exist, each with an assigned **board owner**.
 
 ### 📖 Wikidata Integration
-- 📜 Users should be **guided** on how to create content using **Wikidata resources**.
+-  Users should be **guided** on how to create content using **Wikidata resources**.
 
 ### 💬 Discussions & Administration
-- ❌ **Live chat** is NOT required.
-- ✅ A **discussion section** is necessary.
-- 🔧 The system will have **administrators** to oversee content and user activity.
+-  **Live chat** is NOT required.
+-  A **discussion section** is necessary.
+-  The system will have **administrators** to oversee content and user activity.
 
 ---
