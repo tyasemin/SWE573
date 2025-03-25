@@ -65,7 +65,6 @@ The aim to create mockup is to understand the project requirements better. <a hr
 
 #### 🟠 April 19 – April 29: Interactive & Visual Features
 - Implement:
-  - Voting system
   - Connection editing with history
   - Graph-based visualization (D3.js or Cytoscape.js)
   - Filtering UI
