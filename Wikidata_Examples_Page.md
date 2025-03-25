@@ -19,7 +19,9 @@ LIMIT 10
 
 ```
 
-![Example one](assests/images/exp1.png)
+<p align="center">
+  <img src="assets/wiki_images/exp1.png" width="900">
+</p>
 
 
 ## Find random cities and their capitals
@@ -35,7 +37,9 @@ WHERE {
 LIMIT 10
  ```
 
-![Example second](assests/images/exp2.png)
+<p align="center">
+  <img src="assets/wiki_images/exp2.png" width="900">
+</p>
 
 ## List of Food and Their Main Ingredients
 
@@ -47,7 +51,9 @@ WHERE {
 ```
 
 
-![Example third](assests/images/exp3.png)
+<p align="center">
+  <img src="assets/wiki_images/exp3.png" width="900">
+</p>
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }
