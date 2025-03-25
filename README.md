@@ -89,3 +89,8 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - Deliver final product with documentation
 - Present or deploy publicly
 
+# DB ER Diagram
+
+<p align="center">
+  <img src="assets/db_ER_diagram.png" width="900">
+</p>
