@@ -28,50 +28,65 @@ The aim to create mockup is to understand the project requirements better. <a hr
 
 ## SRS Documentation
 
-## Project Plan
-### 📅 Project Timeline (Release Day:May 13, 2025)
+### 📅 Project Timeline (March 25 – May 13, 2025)
 
-#### 🟢 March 25 – April 4: Requirements & Design Phase
+#### 🟢 - March 25: Requirements & Design Phase
 - Collect and document all functional and non-functional requirements
 - Define user roles and interaction flows
 - Create user stories and use cases
 - Design low-fidelity wireframes and flow diagrams
-- Prepare design mockups
+- Prepare design mockups 
 - Plan technical architecture (frontend, backend, data model, APIs)
 - Draft initial project plan and timeline
+- Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)
+- User registration & login 
 
-#### 🟡 April 5 – April 18: Core Development Phase
-- Set up backend environment and database structure
-- Implement user authentication (registration & login)
-- Develop models and APIs for:
-  - Boards
-  - Tags
-  - Connections between entities
-- Enable content creation and editing
-- Implement tag-based classification (no categories)
-- Basic UI integration for core features
+#### 🛠 March 25 – March 27 (parallel task): Initial CI/CD Setup
+- Set up Git repository and branching strategy
+- Configure CI pipeline (lint, test, build)
+- Prepare Dockerfile and basic docker-compose setup
+- Add automated tests to pipeline
+- Configure deployment pipeline (staging environment)
+
+#### 🟡 March 27 – April 18: Core Development Phase
+- Backend setup: authentication, database models, REST APIs
+- Frontend setup: layout, routing, forms
+- Implement:
+  - Boards, tags, connections
+- Integrate tag-based classification
+- Deploy first staging version (auto-deploy via CI/CD)
+
+#### 🌐 April 15 – April 18: Hosting Environment Setup
+- Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)
+- Configure environment variables and secrets
+- Set up database hosting (e.g., PostgreSQL on Supabase or Railway)
+- Connect frontend/backend with hosted DB
+- Enable HTTPS and domain setup (optional)
 
 #### 🟠 April 19 – April 29: Interactive & Visual Features
 - Implement:
-  - Voting system for content usefulness
-  - Connection editing and annotation with history tracking
-  - Visual graph interface for connections (filterable)
-- Start Wikidata integration
-- Show contributed topics per user
-- Create predefined tags and filter logic
+  - Voting system
+  - Connection editing with history
+  - Graph-based visualization (D3.js or Cytoscape.js)
+  - Filtering UI
+- Begin Wikidata integration (suggestions from SPARQL)
+- Show user contribution history
+- Predefined tag setup
 
 #### 🔵 April 30 – May 9: Final Features, Testing & Fixes
 - Add:
-  - Discussion section under each topic
-  - Popular/trending topics based on user activity
-  - Contributors section per topic
-  - Media integration and quick links
-- Test all features (functionality, usability, performance)
-- Fix bugs, improve UX
-- Prepare user documentation (optional)
+  - Discussion section
+  - Trending topics logic
+  - Contributors view per topic
+  - Media upload and quick links
+- Full system testing: functionality, UI/UX, performance
+- Fix bugs and polish design
+- Add final test coverage to CI pipeline
 
 #### 🟣 May 10 – May 13: Final Packaging & Delivery
-- Final testing and polish
-- Prepare final product demo
-- Create delivery package
-- Submit and/or present the final product
+- Final testing on production/staging
+- Prepare and record demo video (if needed)
+- Write handover or user guide (optional)
+- Deliver final product with documentation
+- Present or deploy publicly
+
