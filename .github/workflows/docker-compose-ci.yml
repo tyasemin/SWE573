@@ -40,7 +40,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.10
 
       - name: Create .env from GitHub Secrets
         run: |
@@ -57,12 +57,16 @@ jobs:
       - name: Build Docker images
         run: docker compose -f docker-compose.yml build
 
-      - name: Run Docker Compose
-        run: |
-          docker compose -f docker-compose.yml up -d
-          sleep 10  # wait for Django to start
+      - name: Run containers
+        run: docker compose -f docker-compose.yml up -d
 
-      - name: Check if Django is running
+      - name: List running containers
+        run: docker compose ps
+
+      - name: Show Django logs
+        run: docker compose logs web
+
+      - name: Check if Django is running (inside container)
         run: |
           docker compose exec web curl --fail http://localhost:8000 || (echo "Django did not respond from inside container!" && exit 1)
 
