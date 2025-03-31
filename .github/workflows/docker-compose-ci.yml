@@ -64,7 +64,7 @@ jobs:
 
       - name: Check if Django is running
         run: |
-          curl --fail http://localhost:8000 || (echo "Django did not respond!" && exit 1)
+          docker compose exec web curl --fail http://localhost:8000 || (echo "Django did not respond from inside container!" && exit 1)
 
       - name: Shut down services
         run: docker compose down
