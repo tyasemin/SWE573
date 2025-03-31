@@ -1,0 +1,70 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      POSTGRES_DB: ${{ secrets.DB_NAME }}
+      POSTGRES_USER: ${{ secrets.DB_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+
+      - name: Create .env from GitHub Secrets
+        run: |
+          echo "DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}" >> .env
+          echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
+          echo "DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_HOST=localhost" >> .env
+          echo "DB_PORT=5432" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+
+      - name: Build Docker images
+        run: docker compose -f docker-compose.yml build
+
+      - name: Run Docker Compose
+        run: |
+          docker compose -f docker-compose.yml up -d
+          sleep 10  # wait for Django to start
+
+      - name: Check if Django is running
+        run: |
+          curl --fail http://localhost:8000 || (echo "Django did not respond!" && exit 1)
+
+      - name: Shut down services
+        run: docker compose down
