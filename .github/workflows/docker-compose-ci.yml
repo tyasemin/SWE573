@@ -63,8 +63,11 @@ jobs:
       - name: List running containers
         run: docker compose ps
 
-      - name: Show Django logs
-        run: docker compose logs web
+      - name: Show Django logs (cat)
+        run: |
+          docker compose logs web > django_logs.txt
+          cat django_logs.txt
+
 
       - name: Check if Django is running (inside container)
         run: |
