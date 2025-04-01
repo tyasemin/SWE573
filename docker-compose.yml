@@ -1,5 +1,4 @@
-version: "3.8"
-
+version: "3.8" 
 services:
   db:
     image: postgres:14
@@ -7,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: dotsdb
       POSTGRES_USER: dotsuser
-      POSTGRES_PASSWORD: swe573dotsuser123
+      POSTGRES_PASSWORD: supersecurepass
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

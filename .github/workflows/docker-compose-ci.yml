@@ -26,10 +26,9 @@ jobs:
           - 5432:5432
         options: >-
           --health-cmd="pg_isready"
-          --health-interval=30s
+          --health-interval=10s
           --health-timeout=5s
           --health-retries=5
-
 
     steps:
       - name: Checkout repository
@@ -51,12 +50,9 @@ jobs:
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_HOST=db" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "DB_PORT=5432" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-
-      - name: Reset containers and volumes
-        run: docker compose down -v
 
       - name: Build Docker images
         run: docker compose -f docker-compose.yml build
