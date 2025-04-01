@@ -1,6 +1,9 @@
 import os
 import django
 from django.contrib.auth import get_user_model
+from dotenv import load_dotenv
+load_dotenv()
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'swe573_app.settings')
 django.setup()
