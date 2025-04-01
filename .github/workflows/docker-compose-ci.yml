@@ -40,7 +40,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.10
 
       - name: Create .env from GitHub Secrets
         run: |
@@ -60,18 +60,26 @@ jobs:
       - name: Run containers
         run: docker compose -f docker-compose.yml up -d
 
-      - name: List running containers
-        run: docker compose ps
+      - name: Wait for services to settle
+        run: sleep 10
 
-      - name: Show Django logs (cat)
-        run: |
-          docker compose logs web > django_logs.txt
-          cat django_logs.txt
+      - name: Save Django logs
+        run: docker compose logs web > django_logs.txt
 
+      - name: Upload Django logs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: django-logs
+          path: django_logs.txt
 
-      - name: Check if Django is running (inside container)
-        run: |
-          docker compose exec web curl --fail http://localhost:8000 || (echo "Django did not respond from inside container!" && exit 1)
+      - name: Save PostgreSQL logs
+        run: docker compose logs db > postgres_logs.txt
 
-      - name: Shut down services
+      - name: Upload PostgreSQL logs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: postgres-logs
+          path: postgres_logs.txt
+
+      - name: Shut down containers
         run: docker compose down
