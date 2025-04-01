@@ -66,8 +66,8 @@ jobs:
 
       - name: Tag and push image to GHCR
         run: |
-          docker tag swe573_web ghcr.io/${{ github.repository_owner }}/swe573:latest
-          docker push ghcr.io/${{ github.repository_owner }}/swe573:latest
+          docker tag swe573_web ghcr.io/tyasemin/swe573:latest
+          docker push ghcr.io/tyasemin/swe573:latest
 
       - name: Run containers (for test)
         run: docker compose up -d
