@@ -54,9 +54,6 @@ jobs:
           echo "DB_PORT=5432" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
 
-      - name: Reset containers and volumes
-        run: docker compose down -v
-
       - name: Build Docker images
         run: docker compose -f docker-compose.yml build
 
