@@ -83,6 +83,8 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
+import os
+print("🔍 DB_HOST:", os.getenv("DB_HOST"))
 
 
 # Password validation
