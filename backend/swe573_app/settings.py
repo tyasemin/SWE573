@@ -13,8 +13,7 @@ import os
 from dotenv import load_dotenv
 
 # .env is two levels above settings.py
-dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
-load_dotenv(dotenv_path)
+load_dotenv(dotenv_path="/code/.env")
 
 
 from pathlib import Path
