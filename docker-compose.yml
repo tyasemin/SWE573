@@ -1,3 +1,4 @@
+version: "3.8" 
 services:
   db:
     image: postgres:14
@@ -12,26 +13,25 @@ services:
       - app-network
 
   web:
-  build: .
-  command: >
-    sh -c "sleep 5 &&
-           python manage.py migrate &&
-           python create_superuser.py &&
-           python manage.py runserver 0.0.0.0:8000"
-  volumes:
-    - ./backend:/code
-    - .env:/code/.env  # 🔐 bu satır sayesinde .env container'a doğrudan geçer
-  ports:
-    - "8000:8000"
-  depends_on:
-    - db
-  working_dir: /code
-  networks:
-    - app-network
+    build: .
+    command: >
+      sh -c "sleep 5 &&
+             python manage.py migrate &&
+             python create_superuser.py &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/code
+      - .env:/code/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    working_dir: /code
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
 
 networks:
   app-network:
-
