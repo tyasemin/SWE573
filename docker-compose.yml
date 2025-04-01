@@ -1,12 +1,13 @@
-version: "3.8" 
+version: "3.8"
+
 services:
   db:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_DB: dotsdb
-      POSTGRES_USER: dotsuser
-      POSTGRES_PASSWORD: supersecurepass
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
