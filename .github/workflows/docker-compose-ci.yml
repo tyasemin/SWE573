@@ -64,7 +64,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - name: Tag and push image to GHCR
+      - name: Tag and Push
         run: |
           docker tag swe573_web ghcr.io/tyasemin/swe573:latest
           docker push ghcr.io/tyasemin/swe573:latest
