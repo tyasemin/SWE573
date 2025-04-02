@@ -143,7 +143,7 @@ jobs:
             docker pull ghcr.io/tyasemin/swe573:latest
             docker compose down
             sleep 5
-            docker compose up -d
+            docker-compose up -d
 
       - name: Revoke runner IP address from security group
         if: always()
