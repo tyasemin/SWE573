@@ -14,8 +14,11 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password_hash', 'email', 'full_name', 'location', 'occupation']
+        labels = {
+            'password_hash': 'Password',
+        }
         widgets = {
-            'password_hash': forms.PasswordInput(attrs={'placeholder': 'Password'})
+            'password_hash': forms.PasswordInput()
         }
 
     def save(self, commit=True):
@@ -26,6 +29,9 @@ class RegistrationForm(forms.ModelForm):
             user.save()
         return user
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=255)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+
