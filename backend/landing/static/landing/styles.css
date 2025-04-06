@@ -79,24 +79,18 @@ body {
     font-size: 32px;
     margin: 10px 0;
   }
-  .headlines {
-    text-align: center;
-    margin-top: 60px;
-    margin-bottom: 20px;
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* yukarıya daha yakın hizalama */
+    margin-top: 40px; /* sayfanın üst kısmına olan uzaklık */
+    height: 150px; /* daha fazla yer kaplamasını istersen artırabilirsin */
   }
   
-  .main-title {
-    font-size: 48px;
-    margin: 0;
+  .logo-image {
+    max-width: 80%; /* çok büyükse boyut sınırla */
+    height: auto;
+    object-fit: contain;
   }
   
-  .sub-title {
-    font-size: 32px;
-    margin: 10px 0;
-  }
-  
-  .small-title {
-    font-size: 20px;
-    margin: 5px 0;
-  }
   
