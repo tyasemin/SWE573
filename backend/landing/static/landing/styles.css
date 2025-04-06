@@ -39,7 +39,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 40px;
-    margin-top: 40px;
+    margin-top: 120px;
     flex-wrap: wrap;
   }
   
@@ -78,5 +78,31 @@ body {
   .form-box .icon {
     font-size: 32px;
     margin: 10px 0;
+  }
+  .headline-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 60px 20px 60px;
+  }
+  
+  .headline-row .title {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .headline-row .left {
+    text-align: left;
+    flex: 1;
+  }
+  
+  .headline-row .center {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .headline-row .right {
+    text-align: right;
+    flex: 1;
   }
   
