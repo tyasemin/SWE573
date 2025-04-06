@@ -16,6 +16,7 @@ def landing_page(request):
                 try:
                     user = User.objects.get(username=username)
                     if check_password(password, user.password_hash):
+                        request.session["username"] = username
                         return redirect("profile")  
                     else:
                         login_form.add_error(None, "Incorrect password.")
