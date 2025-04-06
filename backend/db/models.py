@@ -1,13 +1,18 @@
 from django.db import models
+import pycountry
+
+COUNTRY_CHOICES = [(country.name, country.name) for country in pycountry.countries]
 
 class User(models.Model):
     username = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
+    email = models.EmailField()
     password_hash = models.CharField(max_length=255)
     full_name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=100, choices=COUNTRY_CHOICES)
     occupation = models.CharField(max_length=255)
     registration_date = models.DateTimeField()
+    def __str__(self):
+        return self.username
 
 
 class Board(models.Model):

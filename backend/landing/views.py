@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 from .forms import RegistrationForm, LoginForm
-from db.models import User  # kendi User modelini kullanıyorsun
+from db.models import User  
 
 def landing_page(request):
     login_form = LoginForm()
@@ -16,7 +16,7 @@ def landing_page(request):
                 try:
                     user = User.objects.get(username=username)
                     if check_password(password, user.password_hash):
-                        return redirect("profile")  # profile url tanımlı olmalı
+                        return redirect("profile")  
                     else:
                         login_form.add_error(None, "Incorrect password.")
                 except User.DoesNotExist:
