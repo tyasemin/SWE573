@@ -142,7 +142,7 @@ jobs:
             EOF
 
             docker pull ghcr.io/tyasemin/swe573:latest
-            docker compose down
+            docker-compose down
             sleep 5
             docker-compose up -d
 
