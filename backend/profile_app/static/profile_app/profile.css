@@ -1,10 +1,12 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url('background.png');
+    background-size: cover;            
+    background-repeat: no-repeat;      
+    background-position: center center;
+    background-attachment: fixed;      
     font-family: Arial, sans-serif;
-    background-image: url('../profile_app/background.png'); /* varsa */
-    background-size: cover;
-    background-position: center;
 }
 
 .sidebar {
@@ -13,7 +15,7 @@ body {
     top: 0;
     width: 180px;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(241, 240, 233, 0.8);
     padding-top: 40px;
 }
 
@@ -45,46 +47,65 @@ body {
 }
 
 .profile-card {
-    margin-left: 220px;
+    margin-left: 200px;
+    margin-right: 60px;
     margin-top: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .profile-content {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 15px;
+    background-color: rgba(241, 240, 233, 0.8);
+    padding: 40px;
+    border-radius: 20px;
     text-align: center;
-    width: 350px;
+    width: 700px; /* genişliği 2 katına çıkarıldı */
+    height: 500px; /* yükseklik arttırıldı */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-content .avatar {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .profile-content h2 {
     margin: 10px 0 5px;
+    font-size: 28px;
+}
+
+.profile-content .username {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
 }
 
 .profile-content p {
-    margin: 5px 0;
+    margin: 6px 0;
+    font-size: 16px;
+}
+
+.buttons {
+    margin-top: 30px;
 }
 
 .buttons button {
-    margin: 8px 5px;
-    padding: 8px 12px;
+    margin: 8px 10px;
+    padding: 10px 20px;
     border: none;
     border-radius: 6px;
     background-color: teal;
-    color: white;
+    color: #F1F0E9;
+    font-size: 14px;
     cursor: pointer;
 }
 
 .buttons button:hover {
     background-color: #007777;
 }
+

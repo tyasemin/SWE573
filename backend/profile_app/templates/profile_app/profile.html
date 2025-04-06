@@ -44,13 +44,14 @@
 
   <div class="profile-card">
     <div class="profile-content">
-      <img src="{% static 'profile_app/icons/avatar.svg' %}" class="avatar" alt="User icon" />
+      <img src="{% static 'profile_app/icons/user_icon.svg' %}" class="avatar" alt="User icon" />
       <h2>{{ user.full_name }}</h2>
+      <div class="username">@{{ user.username }}</div>
       <p>⭐⭐⭐⭐☆</p>
       <p>{{ user.occupation }}</p>
       <p>{{ user.email }}</p>
       <p>{{ user.location }}</p>
-
+  
       <div class="buttons">
         <button>Edit Profile</button>
         <button>Change Password</button>

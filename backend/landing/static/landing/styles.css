@@ -44,7 +44,7 @@ body {
   }
   
   .form-box {
-    background: rgba(255, 255, 255, 0.8);
+    background-color: rgba(241, 240, 233, 0.8);
     border-radius: 10px;
     padding: 30px;
     width: 300px;
@@ -82,7 +82,7 @@ body {
   .slogan-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 30px;  /* Yukarıdan boşluk */
+    margin-top: 30px;  
   }
   
   .slogan-image {
