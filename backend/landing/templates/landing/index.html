@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'landing/styles.css' %}" />
 </head>
 <body>
-  <!-- Logo yerine geçecek görsel -->
+  <!-- Logo -->
   <div class="slogan-wrapper">
     <img src="{% static 'landing/slogan.png' %}" alt="Connect the Dots Slogan" class="slogan-image">
   </div>  
@@ -19,26 +19,24 @@
     </p>
 
     <div class="form-container">
+      <!-- Signup Form -->
       <div class="form-box left">
         <h3>Join Now</h3>
-        <form>
-          <input type="text" placeholder="Username" />
-          <input type="password" placeholder="Password" />
-          <input type="email" placeholder="example@mail.com" />
-          <input type="text" placeholder="Computer Engineer" />
-          <select>
-            <option>Country</option>
-          </select>
-          <button type="submit">Sign Up</button>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" name="signup">Sign Up</button>
         </form>
       </div>
+
+      <!-- Login Form -->
       <div class="form-box right">
         <p>If you already have an account...</p>
         <div class="icon">👤</div>
-        <form>
-          <input type="text" placeholder="username" />
-          <input type="password" placeholder="password" />
-          <button type="submit">Log In</button>
+        <form method="POST">
+          {% csrf_token %}
+          {{ login_form.as_p }}
+          <button type="submit" name="login">Log In</button>
         </form>
       </div>
     </div>
