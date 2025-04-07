@@ -39,38 +39,37 @@ The aim to create mockup is to understand the project requirements better. <a hr
 - [x] Plan technical architecture (frontend, backend, data model, APIs)  
 - [x] Draft initial project plan and timeline  
 - [x] Decide on tech stack and CI/CD tools (e.g., GitHub Actions, GitLab CI)
-- [ ] Configure CI pipeline (lint, test, build)
-- [ ] Backend setup: authentication, database models, REST APIs  
-- [ ] Frontend setup: layout, routing, forms
-- [ ] Implement user registration & login
+- [x] Configure CI pipeline (lint, test, build)
+- [x] Backend setup: authentication, database models, REST APIs  
+- [x] Frontend setup: layout, routing, forms
+- [x] Implement user registration & login
 
-
-#### 🟡 March 25 – April 1: Core Development Phase
-- [ ] Deploy first staging version via CI/CD
-- [ ] Implement Boards, Tags, Connections logic  
-- [ ] Integrate tag-based classification system  
-- [ ] Set up Git repository and branching strategy  
-- [ ] Configure CI pipeline (lint, test, build)  
-- [ ] Prepare `Dockerfile` and basic `docker-compose` setup  
-- [ ] Add automated tests to pipeline  
-- [ ] Configure deployment pipeline (staging environment)
-- [ ] Implement unit tests 
-
-#### 🌐 April 2 – April 8: Hosting Environment Setup
-- [ ] Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)  
-- [ ] Configure environment variables and secrets  
-- [ ] Set up PostgreSQL hosting (e.g., Supabase or Railway)  
-- [ ] Connect frontend/backend to the hosted DB  
-- [ ] Enable HTTPS and domain setup (optional)
-
+#### 🌐 March 25 – April 1: Infrastructure Setup
+- [x] Choose hosting platform (e.g., Vercel, Netlify, Heroku, AWS)  
+- [x] Configure environment variables and secrets  
+- [x] Set up PostgreSQL hosting (e.g., Supabase or Railway)  
+- [x] Connect frontend/backend to the hosted DB  
+- [x] Enable HTTPS and domain setup (optional)
+- [x] Deploy first staging version via CI/CD
+- [x] Prepare `Dockerfile` and basic `docker-compose` setup  
+- [x] Add automated tests to pipeline  
+- [x] Configure deployment pipeline (staging environment)
+- [x] Configure CI pipeline (lint, test, build)
+- [x] Set up Git repository and branching strategy
+- [ ] Implement unit tests
       
-#### 🟠 April 9 – April 20: Interactive & Visual Features
+#### 🟠 April 8 – April 20: Interactive & Visual Features
 - [ ] Implement connection editing with history tracking  
 - [ ] Build graph-based visualization (D3.js or Cytoscape.js)  
 - [ ] Create filterable UI for nodes and relationships  
 - [ ] Begin Wikidata integration (SPARQL suggestions)  
 - [ ] Display user contribution history  
-- [ ] Predefined tag logic and UI  
+- [ ] Predefined tag logic and UI
+- [ ] Integrate tag-based classification system
+- [ ] Implement Boards, Tags, Connections logic
+- [ ] Implement Board creation
+- [ ] Implement Node creation
+- [ ] Implement Connection creation
 
 #### 🔵 April 21 – May 9: Final Features, Testing & Fixes
 - [ ] Add discussion section per node  
