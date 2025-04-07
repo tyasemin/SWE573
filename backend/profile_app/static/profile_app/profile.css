@@ -26,16 +26,27 @@ body {
 }
 
 .sidebar li {
+    width: 100%;
+}
+
+.sidebar li button {
     display: flex;
     align-items: center;
+    gap: 12px;
+    width: calc(100% - 1px); /* sidebar'dan 1px küçük */
     padding: 15px 20px;
     font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
     cursor: pointer;
+    text-align: left;
+    background-color: transparent;
     transition: background-color 0.2s;
 }
 
-.sidebar li:hover,
-.sidebar li.active {
+.sidebar li button:hover,
+.sidebar li.active button {
     background-color: rgba(0, 128, 128, 0.2);
     font-weight: bold;
 }
@@ -43,7 +54,6 @@ body {
 .sidebar li img {
     width: 20px;
     height: 20px;
-    margin-right: 12px;
 }
 
 .profile-card {
@@ -59,8 +69,8 @@ body {
     padding: 40px;
     border-radius: 20px;
     text-align: center;
-    width: 700px; /* genişliği 2 katına çıkarıldı */
-    height: 500px; /* yükseklik arttırıldı */
+    width: 700px; /* genişlik 2 katı */
+    height: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -108,4 +118,3 @@ body {
 .buttons button:hover {
     background-color: #007777;
 }
-
