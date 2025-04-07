@@ -20,6 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("landing.urls")),
-    path("profile/", include("profile_app.urls")),  # doğru yönlendirme burada olur
+    path("profile/", include("profile_app.urls")),  
 ]
 

@@ -41,6 +41,15 @@
           Profile
         </button>
       </li>
+      <li class="logout">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">
+            <img src="{% static 'profile_app/icons/logout.svg' %}" alt="Logout icon" class="icon">
+            Logout
+          </button>
+        </form>
+      </li>      
     </ul>
   </div>
 
