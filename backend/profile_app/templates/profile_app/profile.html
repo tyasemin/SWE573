@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
 </head>
 <body>
+
+  <!-- Sidebar -->
   <div class="sidebar">
     <ul>
       <li>
@@ -42,15 +44,15 @@
     </ul>
   </div>
 
+  <!-- Profile Card -->
   <div class="profile-card">
     <div class="profile-content">
-      <img src="{% static 'profile_app/icons/user_icon.svg' %}" class="avatar" alt="User icon" />
+      <img src="{% static 'profile_app/user_icon.png' %}" alt="User icon" class="avatar" />
       <h2>{{ user.full_name }}</h2>
-      <div class="username">@{{ user.username }}</div>
-      <p>⭐⭐⭐⭐☆</p>
-      <p>{{ user.occupation }}</p>
-      <p>{{ user.email }}</p>
-      <p>{{ user.location }}</p>
+      <p class="username">@{{ user.username }}</p>
+      <p class="rating">⭐⭐⭐⭐☆</p>
+      <p class="email">{{ user.email }}</p>
+      <p class="location">{{ user.location }}</p>
   
       <div class="buttons">
         <button>Edit Profile</button>
@@ -59,5 +61,6 @@
       </div>
     </div>
   </div>
+
 </body>
 </html>
