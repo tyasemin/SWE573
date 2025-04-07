@@ -33,5 +33,15 @@ def landing_page(request):
         "login_form": login_form,
     })
 
+
 def profile(request):
-    return render(request, "profile_app/profile.html")  
+    username = request.session.get("username")
+    if not username:
+        return redirect("landing_page")  # veya login sayfası
+
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return redirect("landing_page")
+
+    return render(request, "profile_app/profile.html", {"user": user})
