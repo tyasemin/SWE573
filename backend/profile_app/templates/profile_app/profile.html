@@ -12,10 +12,10 @@
   <div class="sidebar">
     <ul>
       <li>
-        <button onclick="window.location.href='/'">
-          <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon">
-          Home
-        </button>
+       <button type="button" onclick="window.location.href='{% url 'home_page' %}'">
+        <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon">
+        Home
+      </button>
       </li>
       <li>
         <button>
