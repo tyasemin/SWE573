@@ -9,16 +9,14 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-/* Sidebar styles */
 .sidebar {
     position: fixed;
-    top: 0;
     left: 0;
+    top: 0;
     width: 180px;
     height: 100%;
     background-color: rgba(241, 240, 233, 0.8);
     padding-top: 40px;
-    z-index: 1030;
 }
 
 .sidebar ul {
@@ -35,7 +33,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    width: 100%;
+    width: calc(100% - 1px); /* sidebar'dan 1px küçük */
     padding: 15px 20px;
     font-size: 16px;
     background: none;
@@ -57,13 +55,11 @@ body {
     width: 20px;
     height: 20px;
 }
-
 .sidebar li.logout {
     position: absolute;
     bottom: 80px;
     width: 100%;
 }
-
 /* Full-width content area next to sidebar */
 .home-content {
     margin-left: 200px;
@@ -72,7 +68,7 @@ body {
 
 /* Optional: Card-style content inside home-content */
 .home-box {
-    background-color: rgba(241, 240, 233, 0.9);
+    background-color: rgba(241, 240, 233, 0.8);
     border-radius: 15px;
     padding: 40px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
