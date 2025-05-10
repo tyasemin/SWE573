@@ -61,9 +61,24 @@
 
   <!-- Main Content -->
   <div class="home-content">
-    <div class="home-box">
+  <h1>Your Boards</h1>
+
+  {% if boards %}
+    <div class="board-list">
+      {% for board in boards %}
+        <div class="board-card">
+          <h2>{{ board.title }}</h2>
+          <p>{{ board.description }}</p>
+          <!-- You can add a link to go to board detail -->
+        </div>
+      {% endfor %}
     </div>
-  </div>
+  {% else %}
+    <div class="no-board-message">
+      <p>You don't have any board yet. Would you like to <a href="{% url 'create_board' %}">create a new one?</a></p>
+    </div>
+  {% endif %}
+</div>
 </div>
 
 <!-- Bootstrap JS -->
