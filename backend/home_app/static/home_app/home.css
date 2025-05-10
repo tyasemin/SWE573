@@ -64,6 +64,10 @@ body {
 .home-content {
     margin-left: 200px;
     padding: 60px 40px;
+    min-height: 100vh; /* ensures it fills full viewport height */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Optional: Card-style content inside home-content */

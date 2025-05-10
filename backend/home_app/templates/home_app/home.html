@@ -17,7 +17,7 @@
  <!-- Sidebar -->
   <div class="sidebar">
     <ul>
-      <li>
+      <li class="active">
         <button onclick="window.location.href='/'">
           <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon">
           Home
@@ -41,8 +41,8 @@
           Nodes
         </button>
       </li>
-      <li class="active">
-        <button>
+      <li>
+        <button type="button" onclick="window.location.href='{% url 'profile' %}'">
           <img src="{% static 'profile_app/icons/profile.svg' %}" alt="Profile icon" class="icon">
           Profile
         </button>
