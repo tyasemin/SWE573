@@ -22,5 +22,6 @@ urlpatterns = [
     path("", include("landing.urls")),
     path("profile/", include("profile_app.urls")),
     path('home/', include('home_app.urls')),
+    path('board/', include('board.urls')),
 ]
 

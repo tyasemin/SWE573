@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'db',
     'landing',
     'profile_app',
-    'home_app'
+    'home_app',
+    'board'
 ]
 
 MIDDLEWARE = [
