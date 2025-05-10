@@ -14,32 +14,49 @@
 </head>
 <body>
 
-<div class="d-flex">
-  <!-- Sidebar -->
-  <div class="bg-light border-end vh-100" style="width: 180px;">
-    <div class="list-group list-group-flush pt-4">
-      <a href="/" class="list-group-item list-group-item-action d-flex align-items-center">
-        <img src="{% static 'home_app/icons/home.svg' %}" alt="Home" width="20" class="me-2"> Home
-      </a>
-      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-        <img src="{% static 'home_app/icons/popular.svg' %}" alt="Popular" width="20" class="me-2"> Popular
-      </a>
-      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-        <img src="{% static 'home_app/icons/boards.svg' %}" alt="Boards" width="20" class="me-2"> Boards
-      </a>
-      <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-        <img src="{% static 'home_app/icons/nodes.svg' %}" alt="Nodes" width="20" class="me-2"> Nodes
-      </a>
-      <a href="{% url 'profile' %}" class="list-group-item list-group-item-action d-flex align-items-center">
-        <img src="{% static 'home_app/icons/profile.svg' %}" alt="Profile" width="20" class="me-2"> Profile
-      </a>
-      <form action="{% url 'logout' %}" method="post" class="mt-auto list-group-item list-group-item-action d-flex align-items-center border-top">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-link p-0 d-flex align-items-center text-decoration-none">
-          <img src="{% static 'home_app/icons/logout.svg' %}" alt="Logout" width="20" class="me-2"> Logout
+ <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li>
+        <button onclick="window.location.href='/'">
+          <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon">
+          Home
         </button>
-      </form>
-    </div>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/popular.svg' %}" alt="Popular icon" class="icon">
+          Popular
+        </button>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Boards icon" class="icon">
+          Boards
+        </button>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/nodes.svg' %}" alt="Nodes icon" class="icon">
+          Nodes
+        </button>
+      </li>
+      <li class="active">
+        <button>
+          <img src="{% static 'profile_app/icons/profile.svg' %}" alt="Profile icon" class="icon">
+          Profile
+        </button>
+      </li>
+      <li class="logout">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">
+            <img src="{% static 'profile_app/icons/logout.svg' %}" alt="Logout icon" class="icon">
+            Logout
+          </button>
+        </form>
+      </li>      
+    </ul>
   </div>
 
   <!-- Main Content -->
