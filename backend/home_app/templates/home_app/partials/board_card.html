@@ -3,7 +3,7 @@
     {% if board.owner.profile_image %}
       <img src="{{ board.owner.profile_image.url }}" alt="User profile" class="profile-image">
     {% else %}
-      <img src="{% static 'profile_app/icons/default_profile.png' %}" alt="Default profile" class="profile-image">
+      <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="Default profile" class="profile-image">
     {% endif %}
   </div>
 
