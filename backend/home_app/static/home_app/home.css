@@ -84,16 +84,34 @@ body {
 }
 
 .board-card {
-    border: 1px solid #ccc;
+    width: 300px;
     padding: 20px;
-    border-radius: 12px;
-    background: #fff;
-    width: 280px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.no-board-message {
-    font-size: 18px;
-    margin-top: 40px;
-    color: #666;
+.board-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.board-description {
+    margin: 10px 0;
+    color: #444;
+}
+
+.view-button {
+    align-self: flex-end;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+

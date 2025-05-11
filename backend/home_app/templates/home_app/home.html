@@ -64,13 +64,10 @@
     <div class="home-box">
       <h1>Feed</h1>
 
-  {% if boards %}
-    <div class="board-list">
+    {% if boards %}
+      <div class="board-list">
         {% for board in boards %}
-          <div class="board-card">
-            <h2>{{ board.title }}</h2>
-            <p>{{ board.description }}</p>
-          </div>
+          {% include 'home_app/partials/board_card.html' with board=board %}
         {% endfor %}
       </div>
     {% else %}

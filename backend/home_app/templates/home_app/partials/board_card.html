@@ -1,0 +1,8 @@
+<div class="board-card">
+  <div class="board-card-header">
+    <h2>{{ board.title }}</h2>
+    <span class="board-user">@{{ board.user.username }}</span>
+  </div>
+  <p class="board-description">{{ board.description|truncatewords:20 }}</p>
+  <a href="{% url 'board_detail' board.id %}" class="view-button">View Board</a>
+</div>
