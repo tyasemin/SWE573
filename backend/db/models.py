@@ -1,11 +1,13 @@
 from django.db import models
 import pycountry
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
 
 COUNTRY_CHOICES = [(country.name, country.name) for country in pycountry.countries]
 
 class User(AbstractUser):
-    username = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField()
     password_hash = models.CharField(max_length=255)
     full_name = models.CharField(max_length=255)
@@ -18,7 +20,7 @@ class User(AbstractUser):
 class Board(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField()
     number_of_nodes = models.IntegerField()
     number_of_connections = models.IntegerField()
