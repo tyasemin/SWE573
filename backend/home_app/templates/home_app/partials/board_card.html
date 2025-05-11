@@ -1,8 +1,25 @@
 <div class="board-card">
-  <div class="board-card-header">
-    <h2>{{ board.title }}</h2>
-    <span class="board-user">@{{ board.user.username }}</span>
+  <div class="board-card-left">
+    {% if board.owner.profile_image %}
+      <img src="{{ board.owner.profile_image.url }}" alt="User profile" class="profile-image">
+    {% else %}
+      <img src="{% static 'profile_app/icons/default_profile.png' %}" alt="Default profile" class="profile-image">
+    {% endif %}
   </div>
-  <p class="board-description">{{ board.description|truncatewords:20 }}</p>
-  <a href="{% url 'board_detail' board.id %}" class="view-button">View Board</a>
+
+  <div class="board-card-content">
+    <h2 class="board-title">{{ board.title }}</h2>
+    <p class="board-description">{{ board.description }}</p>
+  </div>
+
+  <div class="board-card-meta">
+    <div class="icon-group">
+      <span class="icon-item">
+        <i class="fas fa-share-alt"></i> {{ board.number_of_connections }}
+      </span>
+      <span class="icon-item">
+        <i class="fas fa-project-diagram"></i> {{ board.number_of_nodes }}
+      </span>
+    </div>
+  </div>
 </div>
