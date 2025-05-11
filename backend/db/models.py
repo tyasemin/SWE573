@@ -1,9 +1,10 @@
 from django.db import models
 import pycountry
+from django.contrib.auth.models import AbstractUser
 
 COUNTRY_CHOICES = [(country.name, country.name) for country in pycountry.countries]
 
-class User(models.Model):
+class User(AbstractUser):
     username = models.CharField(max_length=255)
     email = models.EmailField()
     password_hash = models.CharField(max_length=255)
