@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board
+from db.models import Board
 
 class BoardForm(forms.ModelForm):
     class Meta:
