@@ -14,8 +14,6 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
-from django.contrib.auth import get_user_model
-User = get_user_model()
 class Board(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
