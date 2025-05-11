@@ -13,17 +13,17 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password_hash', 'email', 'full_name', 'location', 'occupation']
+        fields = ['username', 'password', 'email', 'full_name', 'location', 'occupation']
         labels = {
-            'password_hash': 'Password',
+            'password': 'Password',
         }
         widgets = {
-            'password_hash': forms.PasswordInput()
+            'password': forms.PasswordInput()
         }
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.password_hash = make_password(self.cleaned_data["password_hash"])
+        user.set_password(self.cleaned_data["password"])
         user.registration_date = timezone.now()
         if commit:
             user.save()
