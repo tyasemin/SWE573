@@ -23,9 +23,9 @@ class Board(models.Model):
     description = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    number_of_nodes = models.IntegerField()
-    number_of_connections = models.IntegerField()
-    number_of_contributors = models.IntegerField()
+    number_of_nodes = models.IntegerField(null=True, blank=True)
+    number_of_connections = models.IntegerField(null=True, blank=True)
+    number_of_contributors = models.IntegerField(null=True, blank=True)
 
 
 class Node(models.Model):
