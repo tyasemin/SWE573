@@ -122,3 +122,44 @@ body {
 .buttons button:hover {
     background-color: #007777;
 }
+
+.latest-boards {
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff6ea;
+    border-radius: 12px;
+    max-width: 800px;
+}
+
+.latest-boards h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.board-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.board-item {
+    border-bottom: 1px solid #ccc;
+    padding: 12px 0;
+}
+
+.board-item h4 {
+    font-size: 18px;
+    margin: 0 0 5px;
+}
+
+.board-item p {
+    font-size: 14px;
+    margin: 0 0 8px;
+}
+
+.board-meta {
+    font-size: 13px;
+    color: #444;
+    display: flex;
+    gap: 20px;
+}

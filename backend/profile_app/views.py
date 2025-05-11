@@ -2,9 +2,17 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from board.models import Board
 
+@login_required
 def profile(request):
-    return render(request, "profile_app/profile.html")
+    user = request.user
+    latest_boards = Board.objects.filter(owner=user).order_by('-created_at')[:3]
+    
+    return render(request, "profile_app/profile.html", {
+        "user": user,
+        "latest_boards": latest_boards
+    })
 
 @login_required
 def home_page(request):
