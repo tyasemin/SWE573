@@ -163,3 +163,22 @@ body {
     display: flex;
     gap: 20px;
 }
+.create-board-section {
+    text-align: center;
+    margin: 30px auto;
+}
+
+.create-board-button {
+    background-color: #FFA500;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.create-board-button:hover {
+    background-color: #ff8c00;
+}
