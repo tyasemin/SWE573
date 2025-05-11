@@ -13,7 +13,7 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=255)
     location = models.CharField(max_length=100, choices=COUNTRY_CHOICES)
     occupation = models.CharField(max_length=255)
-    registration_date = models.DateTimeField()
+    registration_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.username
 
