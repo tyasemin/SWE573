@@ -9,14 +9,15 @@ def create_board(request):
         form = BoardForm(request.POST)
         if form.is_valid():
             board = form.save(commit=False)
-            board.owner = request.user
+            board.owner = request.user  # ✅ logged-in user via Django auth
             board.number_of_nodes = 0
             board.number_of_connections = 0
-            board.number_of_contributors = 0  
+            board.number_of_contributors = 0
             board.save()
-            return redirect('home_page')
+            return redirect('home_page')  # or 'profile', 'my_boards', etc.
     else:
         form = BoardForm()
-    
+
     return render(request, 'board/create_board.html', {'form': form})
+
 
