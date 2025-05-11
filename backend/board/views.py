@@ -9,7 +9,10 @@ def create_board(request):
         form = BoardForm(request.POST)
         if form.is_valid():
             board = form.save(commit=False)
-            board.owner = request.user  # ✅ FIXED this line
+            board.owner = request.user
+            board.number_of_nodes = 0
+            board.number_of_connections = 0
+            board.number_of_contributors = 0  
             board.save()
             return redirect('home_page')
     else:
