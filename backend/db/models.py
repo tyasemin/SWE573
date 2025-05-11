@@ -11,12 +11,6 @@ class User(models.Model):
     location = models.CharField(max_length=100, choices=COUNTRY_CHOICES)
     occupation = models.CharField(max_length=255)
     registration_date = models.DateTimeField()
-    profile_image = models.ImageField(
-        upload_to='profile_images/',
-        default='profile_images/default.jpg',
-        blank=True
-    )
-
     def __str__(self):
         return self.username
 
@@ -29,9 +23,6 @@ class Board(models.Model):
     number_of_nodes = models.IntegerField()
     number_of_connections = models.IntegerField()
     number_of_contributors = models.IntegerField()
-    number_of_nodes = models.IntegerField(default=0)
-    number_of_connections = models.IntegerField(default=0)
-    number_of_contributors = models.IntegerField(default=0)
 
 
 class Node(models.Model):
