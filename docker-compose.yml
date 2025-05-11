@@ -1,4 +1,5 @@
-version: "3.8" 
+version: "3.8"
+
 services:
   db:
     image: postgres:14
@@ -9,8 +10,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - .env:/code/.env
-      - ./backend:/code 
     networks:
       - app-network
 
@@ -23,7 +22,7 @@ services:
              python create_superuser.py &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./backend:/codes
+      - ./backend:/code             # ✅ FIXED to match working_dir
       - .env:/code/.env
     ports:
       - "8000:8000"
@@ -31,7 +30,7 @@ services:
       - db
     env_file:
       - .env
-    working_dir: /code
+    working_dir: /code              # ✅ This now matches the mounted code
     networks:
       - app-network
 
