@@ -6,7 +6,7 @@ from db.models import Board
 
 @login_required
 def profile(request):
-    latest_boards = Board.objects.filter(owner=request.user).order_by('-created_at')[:3]
+    latest_boards = Board.objects.filter(owner=request.user)
     return render(request, 'profile_app/profile.html', {
         "user": request.user,
         "latest_boards": latest_boards
