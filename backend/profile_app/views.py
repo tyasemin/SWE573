@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
-from board.models import Board
+from db.models import Board
 
 @login_required
 def profile(request):
