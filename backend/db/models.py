@@ -26,6 +26,8 @@ class Board(models.Model):
     number_of_nodes = models.IntegerField(null=True, blank=True)
     number_of_connections = models.IntegerField(null=True, blank=True)
     number_of_contributors = models.IntegerField(null=True, blank=True)
+    def __str__(self):
+        return  f"{self.title} - {self.owner.username}"
 
 
 class Node(models.Model):
