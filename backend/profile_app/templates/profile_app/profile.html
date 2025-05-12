@@ -74,23 +74,11 @@
 
   <!-- Latest Boards Section -->
   <div class="latest-boards">
-    <h3>Latest Boards</h3>
-    {% if latest_boards %}
-      <ul class="board-list">
-        {% for board in latest_boards %}
-          <li class="board-item">
-            <h4>{{ board.title }}</h4>
-            <p>{{ board.description|truncatewords:20 }}</p>
-            <div class="board-meta">
-              <span>🔗 Connections: {{ board.number_of_connections }}</span>
-              <span>🧠 Nodes: {{ board.number_of_nodes }}</span>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>You haven’t created any boards yet.</p>
-    {% endif %}
+    {% for board in latest_boards %}
+      <p>{{ board }}</p>
+      {% empty %}
+        <p>No boards found.</p>
+      {% endfor %}
   </div>
   <div class="create-board-section">
     <a href="{% url 'create_board' %}" class="create-board-button">
