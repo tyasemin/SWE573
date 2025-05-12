@@ -14,12 +14,12 @@ def logout_view(request):
     request.session.flush()  
     return redirect("landing_page") 
 
+@login_required
 def home_page(request):
-    boards = Board.objects.order_by(Random())[:10]
-    random.shuffle(boards)  # shuffle in Python memory
-    boards = boards[:10]    # take 10
-
+    boards = Board.objects.order_by('?')[:10]  # ✅ randomly ordered queryset
     return render(request, "home_app/home.html", {
         "boards": boards
     })
+
+
 
