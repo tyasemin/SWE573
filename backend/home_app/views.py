@@ -14,16 +14,13 @@ def logout_view(request):
     request.session.flush()  
     return redirect("landing_page") 
 
+from django.db import connection
+
 @login_required
-def home_page(request):
-    boards = Board.objects.all()
-    boards = Board.objects.order_by('?')[:10]  # ✅ randomly ordered queryset
-    return render(request, "home_app/home.html", {
-        "boards": boards
-    })
-
-print("🟢 Boards:", Board.objects.all())
-print("🎲 Random boards:", Board.objects.order_by('?')[:10])
-
+def home_page():
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM Board")
+        results = cursor.fetchall()
+    return results
 
 
