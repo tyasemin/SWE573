@@ -6,7 +6,7 @@ from db.models import Board
 import random
 from django.db.models.functions import Random
 from django.shortcuts import render
-from .models import Board
+from db.models import Board
 
 def profile(request):
     return render(request, "home_app/home.html")
