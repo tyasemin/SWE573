@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from db.models import Board
 import random
 from django.db.models.functions import Random
+from django.shortcuts import render
+from .models import Board
 
 def profile(request):
     return render(request, "home_app/home.html")
@@ -17,10 +19,8 @@ def logout_view(request):
 from django.db import connection
 
 @login_required
-def home_page():
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM Board")
-        results = cursor.fetchall()
-    return results
+def home_page(request):
+    boards = Board.objects.all()
+    return render(request, "your_template.html", {"boards": boards})
 
 
