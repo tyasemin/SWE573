@@ -8,6 +8,8 @@ from db.models import Board
 def profile(request):
     latest_boards = Board.objects.all()
     print("Boards in DB:", latest_boards)
+    print("..............................................")
+    print(request.user)
     return render(request, 'profile_app/profile.html', {
         "user": request.user,
         "latest_boards": latest_boards
