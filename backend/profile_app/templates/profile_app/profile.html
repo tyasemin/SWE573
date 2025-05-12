@@ -76,6 +76,8 @@
   <div class="latest-boards">
     {% for board in latest_boards %}
       <p>{{ board }}</p>
+      {% empty %}
+        <p>No boards found.</p>
       {% endfor %}
   </div>
   <div class="create-board-section">
