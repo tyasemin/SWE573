@@ -16,10 +16,14 @@ def logout_view(request):
 
 @login_required
 def home_page(request):
+    boards = Board.objects.all()
     boards = Board.objects.order_by('?')[:10]  # ✅ randomly ordered queryset
     return render(request, "home_app/home.html", {
         "boards": boards
     })
+
+print("🟢 Boards:", Board.objects.all())
+print("🎲 Random boards:", Board.objects.order_by('?')[:10])
 
 
 
