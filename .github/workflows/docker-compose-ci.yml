@@ -63,7 +63,7 @@ jobs:
 
       - name: Build and push Docker image to GHCR
         run: |
-          docker build -t ghcr.io/tyasemin/swe573:latest .
+          docker build -t ghcr.io/tyasemin/swe573:latest -f connect_the_dots/Dockerfile .
           docker push ghcr.io/tyasemin/swe573:latest
 
 
