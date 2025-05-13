@@ -12,5 +12,5 @@ RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY . .
+COPY connect_the_dots connect_the_dots
 
