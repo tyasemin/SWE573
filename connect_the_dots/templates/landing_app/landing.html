@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connect The Dots</title>
+  <link rel="stylesheet" href="{% static 'landing/styles.css' %}" />
+</head>
+<body>
+  <!-- Logo -->
+  <div class="slogan-wrapper">
+    <img src="{% static 'landing/slogan.png' %}" alt="Connect the Dots Slogan" class="slogan-image">
+  </div>  
+  <div class="container">
+    <p class="description">
+      Discover a smarter way to connect your thoughts. Visualize knowledge, collaborate, and make sense of complexity—one dot at a time.
+    </p>
+    <div class="form-container">
+      <!-- Signup Form -->
+      <div class="form-box left">
+        <h3>Join Now</h3>
+        <form method="post">
+          {% csrf_token %}
+          {{ register_form.as_p }}
+          <button type="submit" name="register-submit">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Login Form -->
+      <div class="form-box right">
+        <p>If you already have an account...</p>
+        <div class="icon">👤</div>
+        <form method="post">
+          {% csrf_token %}
+          {{ login_form.as_p }}
+          <button type="submit" name="login-submit">Log In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

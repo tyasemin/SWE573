@@ -1,0 +1,16 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Giriş Yap</title>
+</head>
+<body>
+  <h2>Giriş</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Giriş Yap</button>
+  </form>
+  <p>Hesabın yok mu? <a href="{% url 'register' %}">Kayıt Ol</a></p>
+</body>
+</html>

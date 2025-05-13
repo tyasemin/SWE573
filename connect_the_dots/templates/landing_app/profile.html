@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li>
+       <a href="{% url 'home' %}" style="text-decoration: none;">
+        <button type="button">
+          <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon" />
+          Home
+        </button>
+      </a>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/popular.svg' %}" alt="Popular icon" class="icon">
+          Popular
+        </button>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Boards icon" class="icon">
+          Boards
+        </button>
+      </li>
+      <li>
+        <button>
+          <img src="{% static 'profile_app/icons/nodes.svg' %}" alt="Nodes icon" class="icon">
+          Nodes
+        </button>
+      </li>
+      <li class="active">
+        <form method="post" action="{% url 'profile' %}">
+          {% csrf_token %}
+          <button type="submit">
+            <img src="{% static 'profile_app/icons/profile.svg' %}" alt="Profile icon" class="icon" />
+            Profile
+          </button>
+        </form>
+      </li>
+      <li class="logout">
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="icon">
+            <img src="{% static 'profile_app/icons/logout.svg' %}" alt="Logout icon" class="icon" />
+            Logout
+          </button>
+        </form>
+        
+      </li>      
+    </ul>
+  </div>
+<div class ="main-container">
+  <div class="profile-layout">
+
+      <!-- Latest Boards -->
+  <div class="latest-boards">
+    {% for board in boards %}
+    <div class="board-card">
+
+      <!-- Üst kısım: Avatar + Başlık + Açıklama -->
+      <div class="board-card-top">
+        <div class="board-card-left">
+          <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="Profile" class="profile-image">
+        </div>
+
+        <div class="board-card-content">
+          <h2 class="board-title">{{ board.title }}</h2>
+          <p class="board-description">{{ board.description|default:"No description provided." }}</p>
+        </div>
+      </div>
+
+      <!-- Alt kısım: Bağlantı ve Node ikonları -->
+      <div class="board-card-meta">
+        <div class="icon-group">
+          <span class="icon-item">
+            <img src="{% static 'profile_app/icons/noconnections.svg' %}" alt="Connections icon" class="inline-icon" />
+            {{ board.number_of_connections|default:0 }}
+          </span>
+          <span class="icon-item">
+            <img src="{% static 'profile_app/icons/nonodes.svg' %}" alt="Nodes icon" class="inline-icon" />
+            {{ board.number_of_nodes|default:0 }}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p>No boards found.</p>
+    {% endfor %}
+  </div>
+
+    <!-- Profile Card (sağda olacak) -->
+    <div class="profile-card">
+      <div class="profile-content">
+        <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="User icon" class="avatar" />
+        <h2>{{ user.full_name }}</h2>
+        <p class="username">@{{ user.username }}</p>
+        <p class="rating">⭐⭐⭐⭐☆</p>
+        <p class="email">{{ user.email }}</p>
+        <p class="occupation">{{ user.occupation }}</p>
+        <p class="location">{{ user.location }}</p>
+
+        <div class="buttons">
+          <button>Edit Profile</button>
+          <button>Change Password</button>
+          <button>Delete Account</button>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- end .profile-layout -->
+</div>
+
+</body>
+</html>
+

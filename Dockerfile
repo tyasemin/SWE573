@@ -1,11 +1,16 @@
-FROM python:3.8
+# Dockerfile
+FROM python:3.10-slim
 
-WORKDIR /code
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-COPY backend/ /code/
+WORKDIR /app
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Use netcat-openbsd instead of netcat
+RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
-EXPOSE 8000
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+COPY connect_the_dots connect_the_dots
 
