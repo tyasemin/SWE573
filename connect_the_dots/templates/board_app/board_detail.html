@@ -6,37 +6,49 @@
   <title>Board Detail</title>
   <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
   <style>
-#network-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 853px;
-  aspect-ratio: 853 / 721;
-  border-radius: 10px;
-  overflow: hidden; 
-  margin: 20px auto;
-}
+    #network-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 853px;
+      aspect-ratio: 853 / 721;
+      border-radius: 10px;
+      overflow: hidden; 
+      margin: 20px auto;
+    }
 
-#network-background {
-  position: absolute;
-  inset: 0;
-  background-image: url("{% static 'board_app/images/template_board.png' %}");
-  background-size: 100% 100%;   
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 0;
-}
+    #network-background {
+      position: absolute;
+      inset: 0;
+      background-image: url("{% static 'board_app/images/template_board.png' %}");
+      background-size: 100% 100%;   
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 0;
+    }
 
-#network {
-  position: absolute;
-  inset: 0;          
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-</style>
+    #network {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    #nodeModal, #connectionModal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 35%;
+      width: 30%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+  </style>
 </head>
 <body>
-
   <!-- Sidebar -->
   <div class="sidebar">
     <ul>
@@ -88,209 +100,204 @@
     </ul>
   </div>
 
-<div class ="main-container">
+  <div class="main-container">
     <div class="latest-boards">
-    <div class="board-card">
+      <div class="board-card">
         <div class="board-card-top">
-        <div class="board-card-content">
+          <div class="board-card-content">
             <h2 class="board-title">{{ board.title }}</h2>
-        </div>
+          </div>
         </div>
 
-        
         <div id="network-wrapper">
-        <div id="network-background"></div>
-        <div id="network"></div>
+          <div id="network-background"></div>
+          <div id="network"></div>
         </div>
-
-        <!-- Vis.js  -->
-        <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-
-        <!-- JavaScript -->
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        // ➕ Add Node modal aç/kapat
-        const addNodeBtn = document.getElementById('addNodeBtn');
-        const cancelNodeBtn = document.getElementById('cancelNodeBtn');
-        const nodeModal = document.getElementById('nodeModal');
-
-        if (addNodeBtn && cancelNodeBtn && nodeModal) {
-            addNodeBtn.addEventListener('click', () => {
-            nodeModal.style.display = 'block';
-            });
-
-            cancelNodeBtn.addEventListener('click', () => {
-            nodeModal.style.display = 'none';
-            });
-        }
-
-        //
-        const rawNodes = JSON.parse('{{ nodes_json|escapejs }}');
-        const rawEdges = JSON.parse('{{ edges_json|escapejs }}');
-
-        // 
-        const nodes = new vis.DataSet(
-            rawNodes.map((node) => ({
-            id: node.id,
-            label: node.label,
-            shape: 'image',
-            image: "{% static 'board_app/images/thumbtackpaper/1.png' %}",
-            size: 60,
-            font: {
-                size: 10,
-                color: '#000',
-                vadjust: -70,
-                align: 'center'
-            },
-            title: node.description
-            }))
-        );
-
-        const edges = new vis.DataSet(rawEdges); // bağlantılar sonra
-
-       
-        const container = document.getElementById('network');
-        if (container) {
-            const data = { nodes, edges };
-
-            const options = {
-            layout: { improvedLayout: true },
-            physics: {
-                enabled: true,
-                stabilization: true,
-                solver: 'forceAtlas2Based',
-                forceAtlas2Based: {
-                springLength: 250 
-                }
-            },
-            interaction: {
-                dragView: true,
-                zoomView: true
-            },
-            nodes: {
-                shapeProperties: {
-                useImageSize: false
-                }
-            },
-            edges: {
-                arrows: 'to',
-                font: { align: 'middle' }
-            }
-            };
-
-            const network = new vis.Network(container, data, options);
-
-            const panBounds = {
-            left: -426,
-            right: 426,
-            top: -360,
-            bottom: 360,
-            zoomMin: 0.2,
-            zoomMax: 2
-            };
-
-            // Görüntüleme alanı sınırlaması
-            network.on("beforeDrawing", function () {
-            const view = network.getViewPosition();
-            const scale = network.getScale();
-
-            const newX = Math.max(panBounds.left, Math.min(view.x, panBounds.right));
-            const newY = Math.max(panBounds.top, Math.min(view.y, panBounds.bottom));
-
-            if (
-                view.x !== newX ||
-                view.y !== newY ||
-                scale < panBounds.zoomMin ||
-                scale > panBounds.zoomMax
-            ) {
-                network.moveTo({
-                position: { x: newX, y: newY },
-                scale: Math.min(Math.max(scale, panBounds.zoomMin), panBounds.zoomMax),
-                animation: false
-                });
-            }
-            });
-        }
-        });
-        </script>
 
         <div class="board-card-meta">
-        <div class="icon-group">
+          <div class="icon-group">
             <span class="icon-item">
-            <img src="{% static 'profile_app/icons/noconnections.svg' %}" class="inline-icon" />
-            {{ board.number_of_connections|default:0 }}
+              <img src="{% static 'profile_app/icons/noconnections.svg' %}" class="inline-icon" />
+              {{ board.number_of_connections|default:0 }}
             </span>
             <span class="icon-item">
-            <img src="{% static 'profile_app/icons/nonodes.svg' %}" class="inline-icon" />
-            {{ board.number_of_nodes|default:0 }}
+              <img src="{% static 'profile_app/icons/nonodes.svg' %}" class="inline-icon" />
+              {{ board.number_of_nodes|default:0 }}
             </span>
+          </div>
         </div>
-        </div>
-
+      </div>
+      <button id="addNodeBtn" style="margin: 20px;">➕ Add Node</button>
+      <button id="addConnectionBtn" style="margin: 20px;">🔗 Add Connection</button>
     </div>
-    <!-- Add Node Button -->
-    <button id="addNodeBtn" style="margin: 20px;">➕ Add Node</button>
-    </div>
+  </div>
 
-    <!-- Modal -->
-    <label for="nodeTitle">Title:</label><br>
-    <input type="text" id="nodeTitle" name="title" required style="width: 100%; margin-bottom: 10px;"><br>
+  <div id="nodeModal">
+    <h3>Add New Node</h3>
+    <form method="POST" action="{% url 'add_node' %}">
+      {% csrf_token %}
+      <label for="nodeTitle">Title:</label><br>
+      <input type="text" id="nodeTitle" name="title" required style="width: 100%; margin-bottom: 10px;"><br>
+      <button type="button" id="wikidataBtn">🔎 Wikidata Analyse</button><br><br>
+      <div id="wikidataResults" style="display: none; margin-bottom: 10px;">
+        <label>Select description:</label><br>
+        <select id="wikidataDescriptionSelect" style="width: 100%;"></select>
+      </div>
+      <div id="wikidataExtraInfo" style="display: none; margin-bottom: 10px;">
+        <label>Wikidata ID:</label><br>
+        <input type="text" id="wikidataIdInput" name="wikidata_id" readonly style="width: 100%;"><br><br>
+        <label>Image:</label><br>
+        <img id="wikidataImagePreview" src="" alt="Wikidata Image" style="max-width: 100%; height: auto; display: none;">
+        <input type="hidden" name="wikidata_image_url" id="wikidataImageInput">
+      </div>
+      <label for="nodeDescription">Description:</label><br>
+      <textarea id="nodeDescription" name="description" rows="3" style="width: 100%; margin-bottom: 10px;" placeholder="Optional description"></textarea>
+      <input type="hidden" name="wikidata_description" id="wikidataDescriptionInput">
+      <input type="hidden" name="board_id" value="{{ board.id }}">
+      <button type="submit">Save</button>
+      <button type="button" id="cancelNodeBtn">Cancel</button>
+    </form>
+  </div>
 
-    <button type="button" id="wikidataBtn">🔎 Wikidata Analyse</button><br><br>
-
-    <div id="wikidataResults" style="display: none; margin-bottom: 10px;">
-    <label>Select description:</label><br>
-    <select id="wikidataDescriptionSelect" style="width: 100%;"></select>
-    </div>
-
-    <textarea id="nodeDescription" name="description" rows="3" style="width: 100%; margin-bottom: 10px;" placeholder="Optional description"></textarea>
-    <input type="hidden" name="wikidata_description" id="wikidataDescriptionInput">
-
-    <!--Javascript-->
-    <script>
-    document.getElementById('wikidataBtn').addEventListener('click', function () {
-    const title = document.getElementById('nodeTitle').value;
-    if (!title) {
-        alert("Please enter a title first.");
-        return;
-    }
-
-    fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(title)}&language=en&format=json&origin=*`)
-        .then(response => response.json())
-        .then(data => {
-        const select = document.getElementById('wikidataDescriptionSelect');
-        select.innerHTML = '';  // temizle
-
-        if (data.search.length === 0) {
-            select.innerHTML = '<option>No results found</option>';
-        } else {
-            data.search.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.description || '';
-            option.text = `${item.label} — ${item.description || 'No description'}`;
-            select.appendChild(option);
-            });
-
-            document.getElementById('wikidataResults').style.display = 'block';
-
-            // Seçilen açıklamayı gizli input'a yaz
-            select.addEventListener('change', function () {
-            document.getElementById('wikidataDescriptionInput').value = this.value;
-            });
-
-            // ilk seçenek otomatik ekle
-            document.getElementById('wikidataDescriptionInput').value = select.value;
-        }
-        })
-        .catch(error => {
-        console.error("Wikidata fetch error:", error);
-        alert("Failed to fetch from Wikidata.");
-        });
-    });
-    </script>
+  <div id="connectionModal" style="display: none; position: fixed; top: 25%; left: 30%; width: 40%; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1000;">
+  <h3>Add Connection</h3>
+  <form method="POST" action="{% url 'add_connection' %}">
+    {% csrf_token %}
     
+    <label>From Node:</label><br>
+    <select name="from_node_id" id="fromNodeSelect" required style="width: 100%; margin-bottom: 10px;">
+      {% for node in board.nodes.all %}
+        <option value="{{ node.id }}">{{ node.title }}</option>
+      {% endfor %}
+    </select>
 
+    <label>To Node:</label><br>
+    <select name="to_node_id" id="toNodeSelect" required style="width: 100%; margin-bottom: 10px;">
+      {% for node in board.nodes.all %}
+        <option value="{{ node.id }}">{{ node.title }}</option>
+      {% endfor %}
+    </select>
 
+    <label>Label:</label><br>
+    <input type="text" name="label" required style="width: 100%; margin-bottom: 10px;">
+
+    <input type="hidden" name="board_id" value="{{ board.id }}">
+
+    <button type="submit">Save</button>
+    <button type="button" id="cancelConnectionBtn">Cancel</button>
+  </form>
 </div>
+
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script>
+let selectedNodeId = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Node modal aç/kapat
+  document.getElementById('addNodeBtn').addEventListener('click', () => {
+    document.getElementById('nodeModal').style.display = 'block';
+  });
+  document.getElementById('cancelNodeBtn').addEventListener('click', () => {
+    document.getElementById('nodeModal').style.display = 'none';
+  });
+
+  // Connection modal aç/kapat (buton ile)
+  document.getElementById('addConnectionBtn').addEventListener('click', () => {
+    document.getElementById('connectionModal').style.display = 'block';
+  });
+  document.getElementById('cancelConnectionBtn').addEventListener('click', () => {
+    document.getElementById('connectionModal').style.display = 'none';
+  });
+
+  // Wikidata butonu
+  document.getElementById('wikidataBtn').addEventListener('click', function () {
+    const title = document.getElementById('nodeTitle').value;
+    if (!title) return alert("Please enter a title first.");
+
+    fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(title)}&language=en&format=json&limit=50&origin=*`)
+      .then(res => res.json())
+      .then(data => {
+        const select = document.getElementById('wikidataDescriptionSelect');
+        select.innerHTML = '';
+        if (!data.search.length) {
+          select.innerHTML = '<option>No results found</option>';
+          return;
+        }
+        data.search.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.description || '';
+          option.text = `${item.label} — ${item.description || 'No description'}`;
+          option.dataset.qid = item.id;
+          select.appendChild(option);
+        });
+        document.getElementById('wikidataResults').style.display = 'block';
+        document.getElementById('wikidataDescriptionInput').value = select.value;
+        updateExtraWikidataInfo(select.options[0].dataset.qid);
+
+        select.addEventListener('change', function () {
+          document.getElementById('wikidataDescriptionInput').value = this.value;
+          updateExtraWikidataInfo(this.options[this.selectedIndex].dataset.qid);
+        });
+      });
+  });
+
+  function updateExtraWikidataInfo(qid) {
+    if (!qid) return;
+    document.getElementById('wikidataIdInput').value = qid;
+    document.getElementById('wikidataExtraInfo').style.display = 'block';
+    fetch(`https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`)
+      .then(resp => resp.json())
+      .then(entityData => {
+        const image = entityData.entities[qid]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+        if (image) {
+          const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image)}`;
+          document.getElementById('wikidataImageInput').value = url;
+          document.getElementById('wikidataImagePreview').src = url;
+          document.getElementById('wikidataImagePreview').style.display = 'block';
+        } else {
+          document.getElementById('wikidataImageInput').value = '';
+          document.getElementById('wikidataImagePreview').style.display = 'none';
+        }
+      });
+  }
+
+  const rawNodes = JSON.parse('{{ nodes_json|escapejs }}');
+  const rawEdges = JSON.parse('{{ edges_json|escapejs }}');
+
+  const nodes = new vis.DataSet(rawNodes.map(node => ({
+    id: node.id,
+    label: node.label,
+    shape: 'image',
+    image: "{% static 'board_app/images/thumbtackpaper/1.png' %}",
+    size: 60,
+    font: { size: 10, color: '#000', vadjust: -70, align: 'center' },
+    title: node.description
+  })));
+  const edges = new vis.DataSet(rawEdges);
+
+  const container = document.getElementById('network');
+  const data = { nodes, edges };
+  const options = {
+    layout: { improvedLayout: true },
+    physics: { enabled: true, stabilization: true, solver: 'forceAtlas2Based', forceAtlas2Based: { springLength: 250 } },
+    interaction: { dragView: true, zoomView: true },
+    nodes: { shapeProperties: { useImageSize: false } },
+    edges: { arrows: 'to', font: { align: 'middle' } }
+  };
+  const network = new vis.Network(container, data, options);
+
+  const panBounds = { left: -426, right: 426, top: -360, bottom: 360, zoomMin: 0.2, zoomMax: 2 };
+  network.on("beforeDrawing", () => {
+    const view = network.getViewPosition();
+    const scale = network.getScale();
+    const newX = Math.max(panBounds.left, Math.min(view.x, panBounds.right));
+    const newY = Math.max(panBounds.top, Math.min(view.y, panBounds.bottom));
+    if (view.x !== newX || view.y !== newY || scale < panBounds.zoomMin || scale > panBounds.zoomMax) {
+      network.moveTo({ position: { x: newX, y: newY }, scale: Math.min(Math.max(scale, panBounds.zoomMin), panBounds.zoomMax), animation: false });
+    }
+  });
+});
+</script>
+
 </body>
 </html>

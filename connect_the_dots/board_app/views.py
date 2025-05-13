@@ -4,6 +4,7 @@ from db.models import Board
 from db.models import Node
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from db.models import Connection
 
 from django.core.serializers.json import DjangoJSONEncoder
 import json
@@ -11,6 +12,8 @@ import json
 def board_detail(request, board_id):
     board = Board.objects.get(id=board_id)
     nodes = board.nodes.all()
+    connections = board.connections.all() 
+
     node_data = [
         {
             'id': node.id,
@@ -19,10 +22,20 @@ def board_detail(request, board_id):
         }
         for node in nodes
     ]
+
+    edge_data = [
+        {
+            'from': connection.from_node.id,
+            'to': connection.to_node.id,
+            'label': connection.label,
+        }
+        for connection in connections
+    ]
+
     context = {
         'board': board,
         'nodes_json': json.dumps(node_data, cls=DjangoJSONEncoder),
-        'edges_json': json.dumps([]),  # connections sonra
+        'edges_json': json.dumps(edge_data, cls=DjangoJSONEncoder),
     }
     return render(request, 'board_app/board_detail.html', context)
 
@@ -46,3 +59,19 @@ def add_node(request):
         )
 
         return redirect('board_detail', board_id=board.id)
+    
+
+@login_required
+def add_connection(request):
+    if request.method == "POST":
+        from_node = Node.objects.get(id=request.POST["from_node_id"])
+        to_node = Node.objects.get(id=request.POST["to_node_id"])
+        label = request.POST["label"]
+        Connection.objects.create(
+            from_node=from_node,
+            to_node=to_node,
+            label=label,
+            board=from_node.board,
+            created_by=request.user
+        )
+        return redirect('board_detail', board_id=from_node.board.id)
