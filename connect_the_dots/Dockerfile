@@ -10,7 +10,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r connect_the_dots/requirements.txt/requirements.txt
 
-COPY connect_the_dots connect_the_dots
+COPY . .
 
