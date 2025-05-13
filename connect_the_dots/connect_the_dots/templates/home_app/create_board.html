@@ -1,0 +1,9 @@
+<h2>Yeni Board Oluştur</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Oluştur</button>
+</form>
+
+<a href="{% url 'home' %}">Ana Sayfaya Geri Dön</a>
