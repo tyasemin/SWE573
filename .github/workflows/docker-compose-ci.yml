@@ -43,6 +43,7 @@ jobs:
           python-version: 3.8
 
       - name: Create .env from GitHub Secrets
+        working-directory: ./connect_the_dots
         run: |
           echo "DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}" >> .env
           echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
@@ -63,94 +64,5 @@ jobs:
 
       - name: Build and push Docker image to GHCR
         run: |
-          docker build -t ghcr.io/tyasemin/swe573:latest .
+          docker build -t ghcr.io/tyasemin/swe573:latest -f connect_the_dots/Dockerfile .
           docker push ghcr.io/tyasemin/swe573:latest
-
-
-      - name: Run containers (for test)
-        run: docker compose up -d
-
-      - name: Wait for services to settle
-        run: sleep 30
-
-      - name: Save Django logs
-        run: docker compose logs web > django_logs.txt
-
-      - name: Upload Django logs as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: django-logs
-          path: django_logs.txt
-
-      - name: Save PostgreSQL logs
-        run: docker compose logs db > postgres_logs.txt
-
-      - name: Upload PostgreSQL logs as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: postgres-logs
-          path: postgres_logs.txt
-
-      - name: Shut down containers
-        run: docker compose down
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Get runner IP address
-        id: ip
-        uses: haythem/public-ip@v1.2
-
-
-      - name: Whitelist runner IP address in security group
-        run: |
-          aws ec2 authorize-security-group-ingress \
-            --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
-            --protocol tcp \
-            --port 22 \
-            --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
-      - name: SSH into EC2 and deploy latest image
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            mkdir -p /home/ubuntu/app
-            cd /home/ubuntu/app
-
-            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u tyasemin --password-stdin
-
-            curl -o docker-compose.yml https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.yml
-
-            cat <<EOF > .env
-            DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
-            DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}
-            DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
-            DB_NAME=${{ secrets.DB_NAME }}
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            DB_HOST=db
-            DB_PORT=5432
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
-            ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
-            EOF
-
-            docker pull ghcr.io/tyasemin/swe573:latest
-            docker-compose down
-            sleep 5
-            docker-compose up -d
-
-      - name: Revoke runner IP address from security group
-        if: always()
-        run: |
-          aws ec2 revoke-security-group-ingress \
-            --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
-            --protocol tcp \
-            --port 22 \
-            --cidr ${{ steps.ip.outputs.ipv4 }}/32

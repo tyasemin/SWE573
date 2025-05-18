@@ -6,6 +6,57 @@
   <meta charset="UTF-8" />
   <title>Profile</title>
   <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
+
+  <style>
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 40px; /* biraz daha geniş padding */
+    border: 1px solid #888;
+    width: 60%; /* orijinal %30 ise bu 2 katı olur */
+    max-width: 900px; /* responsive sınırlama */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1.25rem; /* daha büyük yazı boyutu */
+  }
+
+  .modal-content input[type="text"],
+  .modal-content textarea {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+
+  .modal-content button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .modal-content .close {
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+
+  </style>
 </head>
 <body>
 
@@ -21,21 +72,9 @@
       </a>
       </li>
       <li>
-        <button>
-          <img src="{% static 'profile_app/icons/popular.svg' %}" alt="Popular icon" class="icon">
-          Popular
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Boards icon" class="icon">
-          Boards
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/nodes.svg' %}" alt="Nodes icon" class="icon">
-          Nodes
+        <button id="openBoardModalBtn">
+          <img src="{% static 'profile_app/icons/createboard.svg' %}" alt="Boards icon" class="icon">
+          Create Board
         </button>
       </li>
       <li class>
@@ -61,15 +100,21 @@
   </div>
 <div class ="main-container">
   <div class="profile-layout">
-
       <!-- Latest Boards -->
   <div class="latest-boards">
+    <div class="search-bar-wrapper">
+      <form method="get" action="{% url 'home' %}" class="search-bar">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+      </form>
+    </div>
     {% for board in boards %}
     <a href="{% url 'board_detail' board.id %}" class="board-link" style="text-decoration: none;">
       <div class="board-card">
 
         <div class="board-card-top">
           <div class="board-card-left">
+            <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Board" class="profile-image">
             <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="Profile" class="profile-image">
           </div>
           <div class="board-card-content">
@@ -97,17 +142,47 @@
       <p>No boards found.</p>
     {% endfor %}
    </div>
-   <a href="{% url 'create_board' %}">
-  <button>Yeni Board Oluştur</button>
-</a>
-
-<ul>
-  {% for board in boards %}
-    <li>{{ board.title }}</li>
-  {% endfor %}
-</ul>
-  </div> 
+   
+  </div>
 </div>
 
+<!-- Modal -->
+<div id="boardModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeBoardModalBtn">&times;</span>
+    <h2>Create New Board</h2>
+    <form method="POST" action="{% url 'create_board' %}">
+      {% csrf_token %}
+      <label for="id_title">Title:</label><br>
+      <input type="text" id="id_title" name="title" required><br><br>
+
+      <label for="id_description">Description:</label><br>
+      <textarea id="id_description" name="description" rows="4"></textarea><br><br>
+
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("boardModal");
+    const openBtn = document.getElementById("openBoardModalBtn");
+    const closeBtn = document.getElementById("closeBoardModalBtn");
+
+    openBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
 </body>
 </html>

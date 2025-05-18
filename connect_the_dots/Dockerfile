@@ -1,5 +1,5 @@
 # Dockerfile
-FROM python:3.10-slim
+FROM python:3.8
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -9,8 +9,7 @@ WORKDIR /app
 # Use netcat-openbsd instead of netcat
 RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install Django>=4.0 psycopg2-binary python-decouple python-dotenv pycountry Pillow
 
-COPY connect_the_dots connect_the_dots
+COPY . .
 
