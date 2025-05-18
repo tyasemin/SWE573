@@ -43,6 +43,7 @@ jobs:
           python-version: 3.8
 
       - name: Create .env from GitHub Secrets
+        working-directory: ./connect_the_dots
         run: |
           echo "DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}" >> .env
           echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
