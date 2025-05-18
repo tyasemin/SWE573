@@ -37,7 +37,7 @@ class Node(models.Model):
     wikidata_image_url = models.CharField(max_length=255,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     label = models.CharField(max_length=255,blank=True)
-    wikidata_selected_properties = JSONField(blank=True, null=True,blank=True)
+    wikidata_selected_properties = JSONField(default=dict, blank=True, null=True)
     manual_properties = JSONField(blank=True, null=True,blank=True)
     
 
