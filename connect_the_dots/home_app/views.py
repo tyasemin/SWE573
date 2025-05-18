@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from db.forms import BoardForm
-from db.models import Board
+from db.models import Board, Node
+from db.models import Activity  
+from django.utils import timezone
+from django.db.models import Q
 
 @login_required
 def create_board(request):
@@ -9,9 +12,10 @@ def create_board(request):
         form = BoardForm(request.POST)
         if form.is_valid():
             board = form.save(commit=False)
-            board.owner = request.user  # 👈 kullanıcıya ait yap
+            board.owner = request.user  
             board.save()
-            return redirect('home')  # oluşturduktan sonra ana sayfaya yönlendir
+
+            return redirect('home')  
     else:
         form = BoardForm()
 
@@ -20,7 +24,18 @@ def create_board(request):
 
 @login_required
 def home_page(request):
-    boards = Board.objects.all()
+    query = request.GET.get('q', '')
+    
+    if query:
+        boards = Board.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(nodes__title__icontains=query) 
+        ).distinct()
+    else:
+        boards = Board.objects.all().order_by('-created_at')
+
     return render(request, 'home_app/home.html', {
-        'boards': boards
+        'boards': boards,
+        'query': query
     })

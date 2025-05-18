@@ -20,21 +20,9 @@
       </a>
       </li>
       <li>
-        <button>
-          <img src="{% static 'profile_app/icons/popular.svg' %}" alt="Popular icon" class="icon">
-          Popular
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Boards icon" class="icon">
-          Boards
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/nodes.svg' %}" alt="Nodes icon" class="icon">
-          Nodes
+        <button id="openBoardModalBtn">
+          <img src="{% static 'profile_app/icons/createboard.svg' %}" alt="Boards icon" class="icon">
+          Create Board
         </button>
       </li>
       <li class="active">
@@ -64,34 +52,36 @@
       <!-- Latest Boards -->
   <div class="latest-boards">
     {% for board in boards %}
-    <div class="board-card">
+    <a href="{% url 'board_detail' board.id %}" class="board-link" style="text-decoration: none;">
+      <div class="board-card">
 
-      <!-- Üst kısım: Avatar + Başlık + Açıklama -->
-      <div class="board-card-top">
-        <div class="board-card-left">
-          <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="Profile" class="profile-image">
+        <!-- Üst kısım: Avatar + Başlık + Açıklama -->
+        <div class="board-card-top">
+          <div class="board-card-left">
+            <img src="{% static 'profile_app/icons/avatar.svg' %}" alt="Profile" class="profile-image">
+          </div>
+
+          <div class="board-card-content">
+            <h2 class="board-title">{{ board.title }}</h2>
+            <p class="board-description">{{ board.description|default:"No description provided." }}</p>
+          </div>
         </div>
 
-        <div class="board-card-content">
-          <h2 class="board-title">{{ board.title }}</h2>
-          <p class="board-description">{{ board.description|default:"No description provided." }}</p>
+        <!-- Alt kısım: Bağlantı ve Node ikonları -->
+        <div class="board-card-meta">
+          <div class="icon-group">
+            <span class="icon-item">
+              <img src="{% static 'profile_app/icons/noconnections.svg' %}" alt="Connections icon" class="inline-icon" />
+              {{ board.number_of_connections|default:0 }}
+            </span>
+            <span class="icon-item">
+              <img src="{% static 'profile_app/icons/nonodes.svg' %}" alt="Nodes icon" class="inline-icon" />
+              {{ board.number_of_nodes|default:0 }}
+            </span>
+          </div>
         </div>
       </div>
-
-      <!-- Alt kısım: Bağlantı ve Node ikonları -->
-      <div class="board-card-meta">
-        <div class="icon-group">
-          <span class="icon-item">
-            <img src="{% static 'profile_app/icons/noconnections.svg' %}" alt="Connections icon" class="inline-icon" />
-            {{ board.number_of_connections|default:0 }}
-          </span>
-          <span class="icon-item">
-            <img src="{% static 'profile_app/icons/nonodes.svg' %}" alt="Nodes icon" class="inline-icon" />
-            {{ board.number_of_nodes|default:0 }}
-          </span>
-        </div>
-      </div>
-    </div>
+    </a>
     {% empty %}
       <p>No boards found.</p>
     {% endfor %}

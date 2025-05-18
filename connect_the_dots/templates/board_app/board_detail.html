@@ -1,303 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {% load static %}
-  <meta charset="UTF-8" />
-  <title>Board Detail</title>
-  <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
-  <style>
-    #network-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 853px;
-      aspect-ratio: 853 / 721;
-      border-radius: 10px;
-      overflow: hidden; 
-      margin: 20px auto;
-    }
+  <head> {% load static %}
+    <meta charset="UTF-8" />
+    <title>Board Detail</title>
+    <link rel="stylesheet" href="{% static 'profile_app/profile.css' %}">
+    <style>
+      #nodeDetailModal {
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        max-height: 80vh;
+        overflow-y: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+      }
 
-    #network-background {
-      position: absolute;
-      inset: 0;
-      background-image: url("{% static 'board_app/images/template_board.png' %}");
-      background-size: 100% 100%;   
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 0;
-    }
+      #network-wrapper {
+        position: relative;
+        width: 1200px;
+        height: 1000px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px auto;
+      }
 
-    #network {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
+      #network-background {
+        position: absolute;
+        inset: 0;
+        background-image: url("{% static 'board_app/images/template_board.png' %}");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 0;
+      }
 
-    #nodeModal, #connectionModal {
-      display: none;
-      position: fixed;
-      top: 20%;
-      left: 35%;
-      width: 30%;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      z-index: 999;
-    }
-  </style>
-</head>
-<body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <ul>
-      <li class = "active">
-       <a href="{% url 'home' %}" style="text-decoration: none;">
-        <button type="button">
-          <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon" />
-          Home
+      #network {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      #nodeModal,
+      #connectionModal {
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 30%;
+        width: 40%;
+        max-height: 80vh;
+        overflow-y: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+      }
+
+      #modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 8px;
+        width: 60%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li class="active">
+          <a href="{% url 'home' %}" style="text-decoration: none;">
+            <button type="button">
+              <img src="{% static 'profile_app/icons/home.svg' %}" alt="Home icon" class="icon" /> Home </button>
+          </a>
+        </li>
+        <li>
+        <button id="openBoardModalBtn">
+          <img src="{% static 'profile_app/icons/createboard.svg' %}" alt="Boards icon" class="icon">
+          Create Board
         </button>
-      </a>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/popular.svg' %}" alt="Popular icon" class="icon">
-          Popular
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/boards.svg' %}" alt="Boards icon" class="icon">
-          Boards
-        </button>
-      </li>
-      <li>
-        <button>
-          <img src="{% static 'profile_app/icons/nodes.svg' %}" alt="Nodes icon" class="icon">
-          Nodes
-        </button>
-      </li>
-      <li class>
-        <form method="post" action="{% url 'profile' %}">
-          {% csrf_token %}
-          <button type="submit">
-            <img src="{% static 'profile_app/icons/profile.svg' %}" alt="Profile icon" class="icon" />
-            Profile
-          </button>
-        </form>
-      </li>
-      <li class="logout">
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button type="submit" class="icon">
-            <img src="{% static 'profile_app/icons/logout.svg' %}" alt="Logout icon" class="icon" />
-            Logout
-          </button>
-        </form>
-        
-      </li>      
-    </ul>
-  </div>
-
-  <div class="main-container">
-    <div class="latest-boards">
-      <div class="board-card">
-        <div class="board-card-top">
-          <div class="board-card-content">
-            <h2 class="board-title">{{ board.title }}</h2>
-          </div>
-        </div>
-
-        <div id="network-wrapper">
-          <div id="network-background"></div>
-          <div id="network"></div>
-        </div>
-
-        <div class="board-card-meta">
-          <div class="icon-group">
-            <span class="icon-item">
-              <img src="{% static 'profile_app/icons/noconnections.svg' %}" class="inline-icon" />
-              {{ board.number_of_connections|default:0 }}
-            </span>
-            <span class="icon-item">
-              <img src="{% static 'profile_app/icons/nonodes.svg' %}" class="inline-icon" />
-              {{ board.number_of_nodes|default:0 }}
-            </span>
-          </div>
-        </div>
-      </div>
-      <button id="addNodeBtn" style="margin: 20px;">➕ Add Node</button>
-      <button id="addConnectionBtn" style="margin: 20px;">🔗 Add Connection</button>
+        </li>
+        <li class>
+          <form method="post" action="{% url 'profile' %}"> {% csrf_token %} <button type="submit">
+              <img src="{% static 'profile_app/icons/profile.svg' %}" alt="Profile icon" class="icon" /> Profile </button>
+          </form>
+        </li>
+        <li class="logout">
+          <form method="post" action="{% url 'logout' %}"> {% csrf_token %} <button type="submit" class="icon">
+              <img src="{% static 'profile_app/icons/logout.svg' %}" alt="Logout icon" class="icon" /> Logout </button>
+          </form>
+        </li>
+      </ul>
     </div>
-  </div>
-
-  <div id="nodeModal">
-    <h3>Add New Node</h3>
-    <form method="POST" action="{% url 'add_node' %}">
-      {% csrf_token %}
-      <label for="nodeTitle">Title:</label><br>
-      <input type="text" id="nodeTitle" name="title" required style="width: 100%; margin-bottom: 10px;"><br>
-      <button type="button" id="wikidataBtn">🔎 Wikidata Analyse</button><br><br>
-      <div id="wikidataResults" style="display: none; margin-bottom: 10px;">
-        <label>Select description:</label><br>
-        <select id="wikidataDescriptionSelect" style="width: 100%;"></select>
+    <div class="main-container">
+      <div class="latest-boards">
+        <div class="board-card">
+          <div class="board-card-top">
+            <div class="board-card-content">
+              <h2 class="board-title">{{ board.title }}</h2>
+              <div style="margin: 20px; text-align: center;">
+                <input type="text" id="nodeSearchInput" placeholder="Search node by title..." style="padding: 8px; width: 300px;" />
+                <button id="nodeSearchBtn">🔍 Search</button>
+                <button id="addNodeBtn" style="margin: 20px;">➕ Add Node</button>
+                <button id="addConnectionBtn" style="margin: 20px;">🔗 Add Connection</button>
+                <button id="deleteConnectionOpenBtn" style="margin: 20px;">➖ Delete Connection</button>
+              </div>
+            </div>
+          </div>
+          <div id="network-wrapper">
+            <div id="network-background"></div>
+            <div id="network"></div>
+          </div>
+          <div class="board-card-meta">
+            <div class="icon-group">
+              <span class="icon-item">
+                <img src="{% static 'profile_app/icons/noconnections.svg' %}" class="inline-icon" />
+                {{ board.number_of_connections|default:0 }}
+              </span>
+              <span class="icon-item">
+                <img src="{% static 'profile_app/icons/nonodes.svg' %}" class="inline-icon" />
+                {{ board.number_of_nodes|default:0 }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div id="wikidataExtraInfo" style="display: none; margin-bottom: 10px;">
-        <label>Wikidata ID:</label><br>
-        <input type="text" id="wikidataIdInput" name="wikidata_id" readonly style="width: 100%;"><br><br>
-        <label>Image:</label><br>
-        <img id="wikidataImagePreview" src="" alt="Wikidata Image" style="max-width: 100%; height: auto; display: none;">
-        <input type="hidden" name="wikidata_image_url" id="wikidataImageInput">
+    </div>
+    <div id="nodeModal">
+      <div class="modal-content">
+        <h3>Add New Node</h3>
+        <form method="POST" action="{% url 'add_node' %}"> {% csrf_token %} <label for="nodeTitle">Title:</label>
+          <br>
+          <input type="text" id="nodeTitle" name="title" required style="width: 100%; margin-bottom: 10px;">
+          <br>
+          <button type="button" id="wikidataBtn">🔎 Wikidata Analyse</button>
+          <br>
+          <div id="manualPropertiesSection" style="margin-top: 10px;">
+            <label>Manual Properties:</label>
+            <div id="manualPropertyList">
+              <div style="display: flex; gap: 10px; margin-bottom: 5px;">
+                <input type="text" name="manual_property_key[]" placeholder="Key" style="flex: 1;" />
+                <input type="text" name="manual_property_value[]" placeholder="Value" style="flex: 1;" />
+              </div>
+            </div>
+            <button type="button" id="addManualPropertyBtn" style="margin-top: 5px;">➕ Add Property</button>
+          </div>
+          <br>
+          <div id="wikidataResults" style="display: none; margin-bottom: 10px;">
+            <label>Select description:</label>
+            <br>
+            <select id="wikidataDescriptionSelect" style="width: 100%;"></select>
+          </div>
+          <div id="wikidataExtraInfo" style="display: none; margin-bottom: 10px;">
+            <label>Wikidata ID:</label>
+            <br>
+            <input type="text" id="wikidataIdInput" name="wikidata_id" readonly style="width: 100%;">
+            <br>
+            <br>
+            <label>Image:</label>
+            <br>
+            <img id="wikidataImagePreview" src="" alt="Wikidata Image" style="max-width: 100%; height: auto; display: none;">
+            <input type="hidden" name="wikidata_image_url" id="wikidataImageInput">
+          </div>
+          <div id="wikidataAllProperties" style="margin-top: 10px; display: none;">
+            <label>Properties from Wikidata:</label>
+            <ul id="wikidataPropertyList" style="padding-left: 20px; font-size: 14px;"></ul>
+          </div>
+          <label for="nodeDescription">Description:</label>
+          <br>
+          <textarea id="nodeDescription" name="description" rows="3" style="width: 100%; margin-bottom: 10px;" placeholder="Optional description"></textarea>
+          <input type="hidden" name="wikidata_description" id="wikidataDescriptionInput">
+          <input type="hidden" name="board_id" value="{{ board.id }}">
+          <input type="hidden" name="wikidata_properties" id="wikidataPropertiesList">
+          <input type="hidden" name="manual_properties_json" id="manualPropertiesJsonInput">
+          <button type="submit">Save</button>
+          <button type="button" id="cancelNodeBtn">Cancel</button>
+        </form>
       </div>
-      <label for="nodeDescription">Description:</label><br>
-      <textarea id="nodeDescription" name="description" rows="3" style="width: 100%; margin-bottom: 10px;" placeholder="Optional description"></textarea>
-      <input type="hidden" name="wikidata_description" id="wikidataDescriptionInput">
-      <input type="hidden" name="board_id" value="{{ board.id }}">
-      <button type="submit">Save</button>
-      <button type="button" id="cancelNodeBtn">Cancel</button>
-    </form>
-  </div>
+    </div>
+    <div id="connectionModal" style="display: none; position: fixed; top: 25%; left: 30%; width: 40%; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1000;">
+      <h3>Add Connection</h3>
+      <form method="POST" action="{% url 'add_connection' %}"> {% csrf_token %} <label>From Node:</label>
+        <br>
+        <select name="from_node_id" id="fromNodeSelect" required style="width: 100%; margin-bottom: 10px;"> {% for node in board.nodes.all %} <option value="{{ node.id }}">{{ node.title }}</option> {% endfor %} </select>
+        <label>To Node:</label>
+        <br>
+        <select name="to_node_id" id="toNodeSelect" required style="width: 100%; margin-bottom: 10px;"> {% for node in board.nodes.all %} <option value="{{ node.id }}">{{ node.title }}</option> {% endfor %} </select>
+        <label>Label:</label>
+        <br>
+        <input type="text" name="label" required style="width: 100%; margin-bottom: 10px;">
+        <input type="hidden" name="board_id" value="{{ board.id }}">
+        <button type="submit">Save</button>
+        <button type="button" id="cancelConnectionBtn">Cancel</button>
+      </form>
+    </div>
+    <div id="nodeDetailModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="closeNodeDetailModal">&times;</span>
+        <h3 id="nodeDetailTitle">Node Title</h3>
+        <p id="nodeDetailDescription">Node Description</p>
+        <img id="nodeDetailImage" src="" alt="Node Image" style="max-width: 100%; display: none;">
+        
+        <div id="nodeDetailConnections" style="margin-top: 15px;">
+          <h4>Connections:</h4>
+          <ul id="connectionList"></ul>
+        </div>
+        <h4>Wikidata Properties (readonly):</h4>
+        <ul id="wikidataPropsList"></ul>
+        <button type="button" id="resetWikidataPropsBtn" style="margin-bottom: 15px;">🗑️ Reset Wikidata Properties</button>
 
-  <div id="connectionModal" style="display: none; position: fixed; top: 25%; left: 30%; width: 40%; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1000;">
-  <h3>Add Connection</h3>
-  <form method="POST" action="{% url 'add_connection' %}">
-    {% csrf_token %}
-    
-    <label>From Node:</label><br>
-    <select name="from_node_id" id="fromNodeSelect" required style="width: 100%; margin-bottom: 10px;">
-      {% for node in board.nodes.all %}
-        <option value="{{ node.id }}">{{ node.title }}</option>
-      {% endfor %}
-    </select>
+        <h4>Edit Manual Properties:</h4>
+        <div id="editableManualPropsList"></div>
+        <button type="button" id="addManualPropEditBtn">➕ Add Manual Property</button>
 
-    <label>To Node:</label><br>
-    <select name="to_node_id" id="toNodeSelect" required style="width: 100%; margin-bottom: 10px;">
-      {% for node in board.nodes.all %}
-        <option value="{{ node.id }}">{{ node.title }}</option>
-      {% endfor %}
-    </select>
-
-    <label>Label:</label><br>
-    <input type="text" name="label" required style="width: 100%; margin-bottom: 10px;">
-
-    <input type="hidden" name="board_id" value="{{ board.id }}">
-
-    <button type="submit">Save</button>
-    <button type="button" id="cancelConnectionBtn">Cancel</button>
-  </form>
-</div>
-
-  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-<script>
-let selectedNodeId = null;
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Node modal aç/kapat
-  document.getElementById('addNodeBtn').addEventListener('click', () => {
-    document.getElementById('nodeModal').style.display = 'block';
-  });
-  document.getElementById('cancelNodeBtn').addEventListener('click', () => {
-    document.getElementById('nodeModal').style.display = 'none';
-  });
-
-  // Connection modal aç/kapat (buton ile)
-  document.getElementById('addConnectionBtn').addEventListener('click', () => {
-    document.getElementById('connectionModal').style.display = 'block';
-  });
-  document.getElementById('cancelConnectionBtn').addEventListener('click', () => {
-    document.getElementById('connectionModal').style.display = 'none';
-  });
-
-  // Wikidata butonu
-  document.getElementById('wikidataBtn').addEventListener('click', function () {
-    const title = document.getElementById('nodeTitle').value;
-    if (!title) return alert("Please enter a title first.");
-
-    fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(title)}&language=en&format=json&limit=50&origin=*`)
-      .then(res => res.json())
-      .then(data => {
-        const select = document.getElementById('wikidataDescriptionSelect');
-        select.innerHTML = '';
-        if (!data.search.length) {
-          select.innerHTML = '<option>No results found</option>';
-          return;
-        }
-        data.search.forEach(item => {
-          const option = document.createElement('option');
-          option.value = item.description || '';
-          option.text = `${item.label} — ${item.description || 'No description'}`;
-          option.dataset.qid = item.id;
-          select.appendChild(option);
+        <div style="margin-top: 15px; text-align: right;">
+          <button type="button" id="saveNodeChangesBtn">💾 Save Changes</button>
+        </div>
+        <div style="text-align: right; margin-top: 10px;">
+          <button type="button" id="deleteNodeBtn" style="background-color: #e74c3c; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer;">
+            🗑️ Delete Node
+          </button>
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+          <button type="button" id="cancelNodeDetailBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div id="deleteConnectionModal" style="display: none; position: fixed; top: 25%; left: 30%; width: 40%; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1000;">
+      <h3>Delete Connection</h3>
+      <form id="deleteConnectionForm">
+        <label for="connectionSelect">Select a connection:</label>
+        <br>
+        <select id="connectionSelect" name="connection_id" required style="width: 100%; margin-bottom: 10px;">
+          {% for edge in board.connections.all %}
+            <option value="{{ edge.id }}">{{ edge.from_node.title }} → {{ edge.to_node.title }} [{{ edge.label }}]</option>
+          {% empty %}
+            <option disabled>No connections available</option>
+          {% endfor %}
+        </select>
+        <div style="text-align: right;">
+          <button type="submit" style="background-color: red; color: white; border: none; padding: 8px 12px;">🗑️ Delete</button>
+          <button type="button" id="cancelDeleteConnectionBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script>
+      let selectedNodeId = null;
+      document.addEventListener("DOMContentLoaded", function() {
+        // Node modal aç/kapat
+        document.getElementById('addNodeBtn').addEventListener('click', () => {
+          document.getElementById('nodeModal').style.display = 'block';
         });
-        document.getElementById('wikidataResults').style.display = 'block';
-        document.getElementById('wikidataDescriptionInput').value = select.value;
-        updateExtraWikidataInfo(select.options[0].dataset.qid);
+        document.getElementById('cancelNodeBtn').addEventListener('click', () => {
+          document.getElementById('nodeModal').style.display = 'none';
+        });
+        // Connection modal aç/kapat
+        document.getElementById('addConnectionBtn').addEventListener('click', () => {
+          document.getElementById('connectionModal').style.display = 'block';
+        });
+        document.getElementById('cancelConnectionBtn').addEventListener('click', () => {
+          document.getElementById('connectionModal').style.display = 'none';
+        });
+        document.getElementById('cancelNodeDetailBtn').addEventListener('click', () => {
+          document.getElementById('nodeDetailModal').style.display = 'none';
+        });
+        document.getElementById("deleteConnectionOpenBtn").addEventListener("click", () => {
+          document.getElementById("deleteConnectionModal").style.display = "block";
+        });
+        document.getElementById("cancelDeleteConnectionBtn").addEventListener("click", () => {
+          document.getElementById("deleteConnectionModal").style.display = "none";
+        });
 
-        select.addEventListener('change', function () {
-          document.getElementById('wikidataDescriptionInput').value = this.value;
-          updateExtraWikidataInfo(this.options[this.selectedIndex].dataset.qid);
+        // Wikidata sorgusu
+        document.getElementById('wikidataBtn').addEventListener('click', function() {
+          const title = document.getElementById('nodeTitle').value;
+          if (!title) return alert("Please enter a title first.");
+          fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(title)}&language=en&format=json&limit=50&origin=*`).then(res => res.json()).then(data => {
+            const select = document.getElementById('wikidataDescriptionSelect');
+            select.innerHTML = '';
+            if (!data.search.length) {
+              select.innerHTML = ' <option> No results found </option>';
+              return;
+            }
+            data.search.forEach(item => {
+              const option = document.createElement('option');
+              option.value = item.description || '';
+              option.text = `${item.label} — ${item.description || 'No description'}`;
+              option.dataset.qid = item.id;
+              select.appendChild(option);
+            });
+            document.getElementById('wikidataResults').style.display = 'block';
+            document.getElementById('wikidataDescriptionInput').value = select.value;
+            updateExtraWikidataInfo(select.options[0].dataset.qid);
+            select.addEventListener('change', function() {
+              document.getElementById('wikidataDescriptionInput').value = this.value;
+              updateExtraWikidataInfo(this.options[this.selectedIndex].dataset.qid);
+            });
+          });
+        });
+
+        async function updateExtraWikidataInfo(qid) {
+          if (!qid) return;
+
+          document.getElementById('wikidataIdInput').value = qid;
+          document.getElementById('wikidataExtraInfo').style.display = 'block';
+
+          // Properties bölümü
+          const propertyListContainer = document.getElementById('wikidataPropertyList');
+          const allPropertiesSection = document.getElementById('wikidataAllProperties');
+
+          // Temizle
+          propertyListContainer.innerHTML = '';
+          allPropertiesSection.style.display = 'none';
+
+          // Veri çekimi
+          const resp = await fetch(`https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`);
+          const entityData = await resp.json();
+          const entity = entityData.entities[qid];
+          const claims = entity?.claims;
+
+          if (claims && Object.keys(claims).length > 0) {
+            const propertyIds = Object.keys(claims).slice(0, 10);
+
+            // Hem property ID'lerini hem value ID'lerini topla
+            const valueIds = [];
+            propertyIds.forEach(pid => {
+              const mainsnak = claims[pid]?.[0]?.mainsnak;
+              const datavalue = mainsnak?.datavalue;
+              if (datavalue?.value?.id) {
+                valueIds.push(datavalue.value.id);
+              }
+            });
+
+            const allIds = [...propertyIds, ...valueIds];
+            const joinedIds = allIds.join('|');
+
+            const labelsResp = await fetch(
+              `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${joinedIds}&format=json&languages=en&props=labels&origin=*`
+            );
+            const labelsData = await labelsResp.json();
+
+            // Listele
+            propertyIds.forEach(pid => {
+              const propLabel = labelsData.entities[pid]?.labels?.en?.value || pid;
+              const datavalue = claims[pid]?.[0]?.mainsnak?.datavalue;
+              const val = datavalue?.value;
+              let valueLabel = '—';
+
+              if (val) {
+                if (typeof val === 'object') {
+                  if (val.id) {
+                    valueLabel = labelsData.entities[val.id]?.labels?.en?.value || val.id;
+                  } else if (val.amount) {
+                    valueLabel = val.amount;
+                  } else if (val.time) {
+                    valueLabel = val.time;
+                  } else if (val.latitude && val.longitude) {
+                    valueLabel = `${val.latitude}, ${val.longitude}`;
+                  } else {
+                    valueLabel = JSON.stringify(val); // fallback
+                  }
+                } else if (typeof val === 'string' || typeof val === 'number') {
+                  valueLabel = val;
+                }
+              }
+              const li = document.createElement('li');
+              li.textContent = `${propLabel}: ${valueLabel}`;
+              propertyListContainer.appendChild(li);
+            });
+
+            allPropertiesSection.style.display = 'block';
+          }
+
+          // Görsel kısmı
+          const image = entity?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+          if (image) {
+            const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image)}`;
+            document.getElementById('wikidataImageInput').value = url;
+            document.getElementById('wikidataImagePreview').src = url;
+            document.getElementById('wikidataImagePreview').style.display = 'block';
+          } else {
+            document.getElementById('wikidataImageInput').value = '';
+            document.getElementById('wikidataImagePreview').style.display = 'none';
+          }
+        }
+
+        // VisJS - network oluşturma
+        const rawNodes = JSON.parse('{{ nodes_json|escapejs }}');
+        const rawEdges = JSON.parse('{{ edges_json|escapejs }}');
+        const nodes = new vis.DataSet(rawNodes.map(node => {
+          const baseNode = {
+            id: node.id,
+            label: node.label || node.title,
+            title: node.description || '',
+            description: node.description || '',
+            size: 40,
+            font: {
+              size: 20,
+              color: '#000',
+              vadjust: -70,
+              align: 'center'
+            },
+            connections: node.connections || [],
+            wikidata_selected_properties: node.wikidata_selected_properties || {},
+            manual_properties: node.manual_properties || {}
+          };
+
+          if (node.wikidata_image_url && node.wikidata_image_url.trim() !== "") {
+            baseNode.image = node.wikidata_image_url;
+            baseNode.shape = 'image';
+          } else {
+            baseNode.image = "{% static 'board_app/images/thumbtackpaper/1.png' %}";
+            baseNode.shape = 'image';
+          }
+
+          return baseNode;
+        }));
+        const edges = new vis.DataSet(rawEdges);
+        const container = document.getElementById('network');
+        const data = {
+          nodes,
+          edges
+        };
+        const options = {
+          layout: {
+            improvedLayout: true
+          },
+          physics: {
+            enabled: false
+          },
+          interaction: {
+            dragView: true,
+            zoomView: true,
+            dragNodes: true,
+            selectable: true,
+            selectConnectedEdges: true
+          },
+          nodes: {
+            shapeProperties: {
+              useImageSize: false
+            }
+          },
+          edges: {
+            arrows: 'to',
+            font: {
+              align: 'middle'
+            },
+            color: {
+              color: "#000000",
+              highlight: "#ff0000", 
+            }
+          }
+        };
+        const network = new vis.Network(container, data, options);
+
+        network.on("doubleClick", function(params) {
+          if (params.nodes.length > 0) {
+            const nodeId = params.nodes[0];
+            selectedNodeId = nodeId;
+            const node = nodes.get(nodeId);
+            document.getElementById('nodeDetailTitle').innerText = node.label || 'Untitled Node';
+            document.getElementById('nodeDetailDescription').innerText = node.description || 'No description';
+            const img = document.getElementById('nodeDetailImage');
+            if (node.wikidata_image_url && node.wikidata_image_url.trim() !== "") {
+              img.src = node.wikidata_image_url;
+              img.style.display = 'block';
+            } else {
+              img.style.display = 'none';
+            }
+            //Properties
+            // Wikidata properties göster
+            const wikidataPropsList = document.getElementById("wikidataPropsList");
+            wikidataPropsList.innerHTML = '';
+            if (node.wikidata_selected_properties) {
+              for (const [key, value] of Object.entries(node.wikidata_selected_properties)) {
+                const li = document.createElement('li');
+                li.textContent = `${key}: ${value}`;
+                wikidataPropsList.appendChild(li);
+              }
+            }
+
+            // Manual properties edit alanı
+            const manualPropsEditList = document.getElementById("editableManualPropsList");
+            manualPropsEditList.innerHTML = '';
+            for (const [key, value] of Object.entries(node.manual_properties || {})) {
+              manualPropsEditList.appendChild(createEditableInputRow(key, value));
+            }
+
+            // Bağlantılar
+            const connectionList = document.getElementById('connectionList');
+            connectionList.innerHTML = ''; // temizle
+            if (node.connections && node.connections.length > 0) {
+              node.connections.forEach(conn => {
+                const li = document.createElement('li');
+                if (conn.to) {
+                  li.textContent = `→ ${conn.to_label} [${conn.label}]`;
+                } else if (conn.from) {
+                  li.textContent = `← ${conn.from_label} [${conn.label}]`;
+                }
+                connectionList.appendChild(li);
+              });
+            } else {
+              const li = document.createElement('li');
+              li.textContent = "No connections.";
+              connectionList.appendChild(li);
+            }
+            document.getElementById('nodeDetailModal').style.display = 'block';
+          }
+        });
+        const panBounds = {
+          left: -426,
+          right: 426,
+          top: -360,
+          bottom: 360,
+          zoomMin: 0.2,
+          zoomMax: 2
+        };
+        network.on("beforeDrawing", () => {
+          const view = network.getViewPosition();
+          const scale = network.getScale();
+          const newX = Math.max(panBounds.left, Math.min(view.x, panBounds.right));
+          const newY = Math.max(panBounds.top, Math.min(view.y, panBounds.bottom));
+          if (view.x !== newX || view.y !== newY || scale < panBounds.zoomMin || scale > panBounds.zoomMax) {
+            network.moveTo({
+              position: {
+                x: newX,
+                y: newY
+              },
+              scale: Math.min(Math.max(scale, panBounds.zoomMin), panBounds.zoomMax),
+              animation: false
+            });
+          }
         });
       });
-  });
 
-  function updateExtraWikidataInfo(qid) {
-    if (!qid) return;
-    document.getElementById('wikidataIdInput').value = qid;
-    document.getElementById('wikidataExtraInfo').style.display = 'block';
-    fetch(`https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`)
-      .then(resp => resp.json())
-      .then(entityData => {
-        const image = entityData.entities[qid]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
-        if (image) {
-          const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image)}`;
-          document.getElementById('wikidataImageInput').value = url;
-          document.getElementById('wikidataImagePreview').src = url;
-          document.getElementById('wikidataImagePreview').style.display = 'block';
+      document.getElementById('deleteNodeBtn').addEventListener('click', () => {
+        if (!selectedNodeId) return;
+
+        if (!confirm("Are you sure you want to delete this node?")) return;
+
+        fetch("{% url 'delete_node' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+          body: JSON.stringify({ node_id: selectedNodeId })
+        })
+        .then(res => {
+          if (res.ok) {
+            nodes.remove(selectedNodeId); // Vis.js'ten kaldır
+            document.getElementById('nodeDetailModal').style.display = 'none'; 
+            selectedNodeId = null;
+          } else {
+            alert("Error deleting node.");
+          }
+        })
+        .catch(err => {
+          console.error("Error:", err);
+          alert("Error deleting node.");
+        });
+      });
+    document.getElementById("deleteConnectionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const connectionId = document.getElementById("connectionSelect").value;
+
+      if (!confirm("Are you sure you want to delete this connection?")) return;
+
+      fetch("{% url 'delete_connection' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({ connection_id: connectionId })
+      })
+      .then(res => {
+        if (res.ok) {
+          edges.remove(connectionId);  // canvas'tan sil
+          document.getElementById("deleteConnectionModal").style.display = "none";
         } else {
-          document.getElementById('wikidataImageInput').value = '';
-          document.getElementById('wikidataImagePreview').style.display = 'none';
+          alert("Error deleting connection.");
+        }
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Error deleting connection.");
+      });
+    });
+
+    //Node search
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById('nodeSearchBtn').addEventListener('click', function () {
+        const query = document.getElementById('nodeSearchInput').value.trim().toLowerCase();
+        if (!query) return;
+
+        const allNodes = nodes.get();
+        let foundNode = null;
+
+        for (const node of allNodes) {
+          const label = (node.label || node.title || '').toLowerCase();
+          if (label.includes(query)) {
+            foundNode = node;
+            break;
+          }
+        }
+
+        if (foundNode) {
+          selectedNodeId = foundNode.id;
+
+          // node bilgilerini doldur
+          document.getElementById('nodeDetailTitle').innerText = foundNode.label || 'Untitled Node';
+          document.getElementById('nodeDetailDescription').innerText = foundNode.description || 'No description';
+
+          const img = document.getElementById('nodeDetailImage');
+          if (foundNode.image && foundNode.image.trim() !== "") {
+            img.src = foundNode.image;
+            img.style.display = 'block';
+          } else {
+            img.style.display = 'none';
+          }
+
+          // bağlantılar (varsayılan boş)
+          const connectionList = document.getElementById('connectionList');
+          connectionList.innerHTML = '';
+          if (foundNode.connections && foundNode.connections.length > 0) {
+            foundNode.connections.forEach(conn => {
+              const li = document.createElement('li');
+              if (conn.to) {
+                li.textContent = `→ ${conn.to_label} [${conn.label}]`;
+              } else if (conn.from) {
+                li.textContent = `← ${conn.from_label} [${conn.label}]`;
+              }
+              connectionList.appendChild(li);
+            });
+          } else {
+            const li = document.createElement('li');
+            li.textContent = "No connections.";
+            connectionList.appendChild(li);
+          }
+
+          // modal'ı göster
+          document.getElementById('nodeDetailModal').style.display = 'block';
+
+        } else {
+          alert("No matching node found.");
         }
       });
+    });
+    // manual property
+    document.getElementById('addManualPropertyBtn').addEventListener('click', function () {
+      const container = document.getElementById('manualPropertyList');
+
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.gap = '10px';
+      row.style.marginBottom = '5px';
+
+      const keyInput = document.createElement('input');
+      keyInput.type = 'text';
+      keyInput.name = 'manual_property_key[]';
+      keyInput.placeholder = 'Key';
+      keyInput.style.flex = '1';
+
+      const valueInput = document.createElement('input');
+      valueInput.type = 'text';
+      valueInput.name = 'manual_property_value[]';
+      valueInput.placeholder = 'Value';
+      valueInput.style.flex = '1';
+
+      row.appendChild(keyInput);
+      row.appendChild(valueInput);
+      container.appendChild(row);
+    });
+    //add properties
+    document.querySelector('#nodeModal form').addEventListener('submit', function(e) {
+  // manual properties
+    const keys = Array.from(document.getElementsByName('manual_property_key[]')).map(input => input.value.trim());
+    const values = Array.from(document.getElementsByName('manual_property_value[]')).map(input => input.value.trim());
+
+    const props = {};
+    keys.forEach((key, idx) => {
+      if (key) props[key] = values[idx] || "";
+    });
+
+    document.getElementById('manualPropertiesJsonInput').value = JSON.stringify(props);
+
+    // WIKIDATA properties
+    const wikidataProps = {};
+    const listItems = document.querySelectorAll('#wikidataPropertyList li');
+    listItems.forEach(item => {
+      const [key, ...rest] = item.textContent.split(':');
+      const value = rest.join(':').trim();
+      if (key && value) {
+        wikidataProps[key.trim()] = value;
+      }
+    });
+
+    document.getElementById('wikidataPropertiesList').value = JSON.stringify(wikidataProps);
+  });
+
+  //helper
+  function createEditableInputRow(key = '', value = '') {
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.gap = '10px';
+    row.style.marginBottom = '5px';
+
+    const keyInput = document.createElement('input');
+    keyInput.type = 'text';
+    keyInput.placeholder = 'Key';
+    keyInput.value = key;
+    keyInput.classList.add('manual_key');
+    keyInput.style.flex = '1';
+
+    const valueInput = document.createElement('input');
+    valueInput.type = 'text';
+    valueInput.placeholder = 'Value';
+    valueInput.value = value;
+    valueInput.classList.add('manual_value');
+    valueInput.style.flex = '1';
+
+    row.appendChild(keyInput);
+    row.appendChild(valueInput);
+    return row;
   }
 
-  const rawNodes = JSON.parse('{{ nodes_json|escapejs }}');
-  const rawEdges = JSON.parse('{{ edges_json|escapejs }}');
-
-  const nodes = new vis.DataSet(rawNodes.map(node => ({
-    id: node.id,
-    label: node.label,
-    shape: 'image',
-    image: "{% static 'board_app/images/thumbtackpaper/1.png' %}",
-    size: 60,
-    font: { size: 10, color: '#000', vadjust: -70, align: 'center' },
-    title: node.description
-  })));
-  const edges = new vis.DataSet(rawEdges);
-
-  const container = document.getElementById('network');
-  const data = { nodes, edges };
-  const options = {
-    layout: { improvedLayout: true },
-    physics: { enabled: true, stabilization: true, solver: 'forceAtlas2Based', forceAtlas2Based: { springLength: 250 } },
-    interaction: { dragView: true, zoomView: true },
-    nodes: { shapeProperties: { useImageSize: false } },
-    edges: { arrows: 'to', font: { align: 'middle' } }
-  };
-  const network = new vis.Network(container, data, options);
-
-  const panBounds = { left: -426, right: 426, top: -360, bottom: 360, zoomMin: 0.2, zoomMax: 2 };
-  network.on("beforeDrawing", () => {
-    const view = network.getViewPosition();
-    const scale = network.getScale();
-    const newX = Math.max(panBounds.left, Math.min(view.x, panBounds.right));
-    const newY = Math.max(panBounds.top, Math.min(view.y, panBounds.bottom));
-    if (view.x !== newX || view.y !== newY || scale < panBounds.zoomMin || scale > panBounds.zoomMax) {
-      network.moveTo({ position: { x: newX, y: newY }, scale: Math.min(Math.max(scale, panBounds.zoomMin), panBounds.zoomMax), animation: false });
+  //reset button
+  document.getElementById("resetWikidataPropsBtn").addEventListener("click", () => {
+    if (confirm("Wikidata properties will be removed. Are you sure?")) {
+      document.getElementById("wikidataPropsList").innerHTML = '';
+      document.getElementById("wikidataPropsList").dataset.cleared = "true"; // işaretle
     }
   });
-});
-</script>
 
-</body>
+  //add manual property
+  document.getElementById('addManualPropEditBtn').addEventListener('click', function () {
+    const container = document.getElementById('editableManualPropsList');
+    container.appendChild(createEditableInputRow());
+  });
+
+
+  //save button
+  document.getElementById("saveNodeChangesBtn").addEventListener("click", async () => {
+    const manualProps = {};
+    document.querySelectorAll(".manual_key").forEach((keyInput, idx) => {
+      const key = keyInput.value.trim();
+      const value = document.querySelectorAll(".manual_value")[idx].value.trim();
+      if (key) manualProps[key] = value;
+    });
+
+    const payload = {
+      id: selectedNodeId,
+      manual_properties: manualProps
+    };
+
+    if (document.getElementById("wikidataPropsList").dataset.cleared === "true") {
+      payload["wikidata_selected_properties"] = {};
+    }
+
+    await fetch("{% url 'update_node' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: JSON.stringify(payload)
+    }).then(res => {
+      if (res.ok) {
+        alert("Changes saved!");
+        location.reload();
+      } else {
+        alert("Error updating node.");
+      }
+    });
+  });
+
+    </script>
+  </body>
 </html>
