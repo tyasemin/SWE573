@@ -38,7 +38,7 @@ class Node(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     label = models.CharField(max_length=255,blank=True)
     wikidata_selected_properties = JSONField(default=dict, blank=True, null=True)
-    manual_properties = JSONField(blank=True, null=True,blank=True)
+    manual_properties = JSONField(default=dict,blank=True, null=True)
     
 
 class Connection(models.Model):
