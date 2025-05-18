@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-xw=r_5a9%@dk00^&)(w-0d33on=6o583j&h&ae5o$hy1o3u-fh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 LOGIN_REDIRECT_URL = '/home/'
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = ["0.0.0.0","13.60.196.130","localhost"]
 AUTH_USER_MODEL = 'db.User'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
