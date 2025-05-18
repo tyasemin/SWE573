@@ -9,8 +9,7 @@ WORKDIR /app
 # Use netcat-openbsd instead of netcat
 RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
-COPY connect_the_dots/requirements.txt .
-RUN pip install --upgrade pip && pip install -r connect_the_dots/requirements.txt
+RUN pip install Django>=4.0 psycopg2-binary python-decouple python-dotenv pycountry Pillow
 
 COPY . .
 
