@@ -76,18 +76,22 @@ jobs:
         run: sleep 30
 
       - name: Save Django logs
+        working-directory: ./connect_the_dots
         run: docker compose logs web > django_logs.txt
 
       - name: Upload Django logs as artifact
+        working-directory: ./connect_the_dots
         uses: actions/upload-artifact@v4
         with:
           name: django-logs
           path: django_logs.txt
 
       - name: Save PostgreSQL logs
+        working-directory: ./connect_the_dots
         run: docker compose logs db > postgres_logs.txt
 
       - name: Upload PostgreSQL logs as artifact
+        working-directory: ./connect_the_dots
         uses: actions/upload-artifact@v4
         with:
           name: postgres-logs
