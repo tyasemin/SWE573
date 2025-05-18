@@ -28,6 +28,14 @@ The aim to create mockup is to understand the project requirements better. <a hr
 
 ## SRS Documentation
 
+Detailed SRS Documentation Can be Found : <a href="srs.md">Click</a></li>
+
+## Final Project Report Can be Found : 
+
+Final report, (user manual and test user included can be found at) : <a href="deliverables/final_report.pdf">Click</a></li>
+
+## Derivilables:
+
 ### 📅 Project Timeline (March 25 – May 13, 2025)
 
 #### 🟢 - March 25: Requirements & Design Phase
