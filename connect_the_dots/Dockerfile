@@ -9,8 +9,8 @@ WORKDIR /app
 # Use netcat-openbsd instead of netcat
 RUN apt-get update && apt-get install -y netcat-openbsd && apt-get clean
 
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY connect_the_dots/requirements.txt .
+RUN pip install --upgrade pip && pip install -r connect_the_dots/requirements.txt
 
 COPY . .
 
