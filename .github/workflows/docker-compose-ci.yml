@@ -68,6 +68,7 @@ jobs:
 
 
       - name: Run containers (for test)
+        working-directory: ./connect_the_dots
         run: docker compose up -d
 
       - name: Wait for services to settle
