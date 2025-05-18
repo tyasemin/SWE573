@@ -60,32 +60,32 @@ The aim to create mockup is to understand the project requirements better. <a hr
       
 #### 🟠 April 8 – April 20: Interactive & Visual Features
 - [ ] Implement connection editing with history tracking  
-- [ ] Build graph-based visualization (D3.js or Cytoscape.js)  
+- [x] Build graph-based visualization (D3.js or Cytoscape.js)  
 - [ ] Create filterable UI for nodes and relationships  
-- [ ] Begin Wikidata integration (SPARQL suggestions)  
+- [x] Begin Wikidata integration (SPARQL suggestions)  
 - [ ] Display user contribution history  
 - [ ] Predefined tag logic and UI
 - [ ] Integrate tag-based classification system
-- [ ] Implement Boards, Tags, Connections logic
-- [ ] Implement Board creation
-- [ ] Implement Node creation
-- [ ] Implement Connection creation
+- [x] Implement Boards, Tags, Connections logic
+- [x] Implement Board creation
+- [x] Implement Node creation
+- [x] Implement Connection creation
 
 #### 🔵 April 21 – May 9: Final Features, Testing & Fixes
 - [ ] Add discussion section per node  
 - [ ] Implement trending topics algorithm  
 - [ ] Add contributors view per topic  
 - [ ] Finalize media upload and quick access links  
-- [ ] Complete system testing: functionality, UX, performance  
-- [ ] Fix critical bugs and polish design  
-- [ ] Add final test coverage to CI/CD pipeline  
+- [x] Complete system testing: functionality, UX, performance  
+- [x] Fix critical bugs and polish design  
+- [x] Add final test coverage to CI/CD pipeline  
 
 #### 🟣 May 10 – May 13: Final Packaging & Delivery
-- [ ] Run final testing on production or staging  
-- [ ] Record product demo video (if needed)  
-- [ ] Write handover guide or user documentation  
-- [ ] Package and deliver the final product  
-- [ ] Present or deploy project publicly  
+- [x] Run final testing on production or staging  
+- [x] Record product demo video (if needed)  
+- [x] Write handover guide or user documentation  
+- [x] Package and deliver the final product  
+- [x] Present or deploy project publicly  
 
 # DB ER Diagram
 
